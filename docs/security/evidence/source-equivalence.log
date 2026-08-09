@@ -1,0 +1,6 @@
+2026-08-09 verified source tree
+hash_command: rg --files -g '!docs/security/evidence/**' | sort | xargs shasum -a 256 | shasum -a 256
+source_tree_hash: 6f45b98067059b548e75ec82674173d72ebb189e46b7ff7d046a7d000b517c8c
+scope: all non-ignored repository files except this evidence subtree
+equivalence_result: MATCH (the tested browser/HTTP/unit source tree; no ZIP/package was created)
+future_gate: any published archive/container must regenerate a member manifest and match this reviewed source or be re-tested.

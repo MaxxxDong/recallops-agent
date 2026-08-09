@@ -1,0 +1,27 @@
+2026-08-09 AWS LAMBDA VERIFICATION
+data: synthetic only
+credentials_persisted_in_lambda: none
+
+ecr_repository: recallops-lambda
+immutable_tag: app-20260809-v1
+image_digest: sha256:f78e34f08dd342d8f33cfe4cd4f69482bcc0e6db23b01d19b62d89af767bf0b8
+architecture: linux/arm64
+demo_layer_compressed_size: approximately 18 MiB
+lambda_function: recallops-probe
+function_mode: demo
+function_url_auth: AWS_IAM
+
+health:
+  transport_status: 200
+  function_status: 200
+  body: {"ok":true,"mode":"demo"}
+
+four_step_flow:
+  statuses: 201, 200, 503, 200
+  injected_failure: observed
+  final_status: complete
+  execution_count: 1
+  receipt_committed_count: 1
+  result: PASS
+
+The preview image is intentionally credential-free. Real CockroachDB and MCP provider verification is recorded separately in real-provider.log.

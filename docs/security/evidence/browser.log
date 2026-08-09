@@ -1,0 +1,10 @@
+2026-08-09 Playwright Chromium real browser sink
+URL: http://127.0.0.1:8765/
+flow: fill adversarial event -> Create incident -> Approve -> Execute with one failure -> Resume
+CLI exit codes: all 0
+DOM assertion: {pwned:false, injectedImages:0, status:"HTTP 200: complete", complete:true, executionCountOne:true}
+console: one expected failed-resource entry for the deliberately injected HTTP 503; zero CSP, JavaScript, favicon, or rendering errors.
+rendering: payload remained literal text in textbox and output pre; no img element or event handler was created.
+session: closed after verification.
+
+Root replay used the same adversarial payload and reached HTTP 200 complete with execution_count=1, pwned=false, and injectedImages=0. A subsequent loopback HTTP verification covered the post-review duplicate-approve/resume state guard and single receipt_committed audit invariant; no fresh browser-only claim is made for that backend-only change.

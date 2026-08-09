@@ -1,0 +1,28 @@
+2026-08-09 REAL PROVIDER VERIFICATION
+data: synthetic only
+cash_action: none
+
+schema_and_seed:
+  exit_code: 0
+  result: CockroachDB schema, memory_chunks and L2 C-SPANN index initialized
+  synthetic_incident_id: 11111111-1111-4111-8111-111111111111
+  synthetic_memory_count: 2
+
+completed_run:
+  run_id: 4fa66b2a-59b8-4205-ba68-0f03208688d2
+  status: complete
+  memory_sources: synthetic-incident/INC-017, synthetic-runbook/duplicate-requests
+  receipt_count: 1
+  execution_count: 1
+  receipt_committed_count: 1
+
+managed_mcp:
+  server: cockroachdb-cloud
+  transport: official Python MCP Streamable HTTP ClientSession
+  tools: get_table_schema, select_query
+  schema_reads: 3
+  row_reads: 3
+  write_calls: 0
+  result: PASS
+
+secrets, connection strings, prompts and full provider responses are intentionally absent.

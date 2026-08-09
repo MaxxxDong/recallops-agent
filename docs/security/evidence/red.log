@@ -1,0 +1,5 @@
+2026-08-09 security RED
+command: PYTHONPATH=src python -m unittest tests.test_security_red -v
+exit_code: 1 (expected)
+result: FAIL: '<img' unexpectedly found in '<pre><img src=x onerror=globalThis.pwned=1></pre>'
+meaning: the regression test detects the deliberately vulnerable raw-markup renderer in tests/red_vulnerable_fixture.py.

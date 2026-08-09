@@ -1,0 +1,5 @@
+2026-08-09 OpenTelemetry console smoke
+command: PYTHONPATH=src RECALLOPS_OTEL_CONSOLE=1 python -c "from recallops.http import APP; r=APP.start('synthetic checkout event'); assert r['status']=='approval_required'"
+exit_code: 0
+span: agent.start; status_code=UNSET; telemetry.sdk.version=1.44.0; recallops.run_id present.
+sensitive fields: no event text, prompt, connection string, API key, or MCP body emitted.

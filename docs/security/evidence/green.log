@@ -1,0 +1,5 @@
+2026-08-09 security/workflow GREEN
+command: PYTHONPATH=src python -m unittest tests.test_recallops -v
+exit_code: 0
+result: 20 tests ran; OK
+coverage: LangGraph approval flow, repeated approval/resume guards, injected failure/resume, concurrent idempotency, scoped epoch filtering, async embedding contract, official URL normalization, Managed MCP tool/session boundaries, full adversarial corpus through real WSGI JSON, browser textContent contract, provider configuration_required, Lambda health import.
