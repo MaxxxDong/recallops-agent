@@ -15,6 +15,8 @@ RECALLOPS_MODE=demo .venv/bin/python -m recallops.http
 
 Click **Create incident**, **Approve**, **Execute with one failure**, and **Resume**. The UI shows scoped recall, the durable receipt created before the injected failure, reuse of that receipt after recovery, the handoff, and the audit trail. Demo mode never claims a provider call and stores nothing after the process exits.
 
+Public fixed-scenario demo: https://i5lvohbwb6newxfvc4xxiky6im0sojdz.lambda-url.us-east-1.on.aws/
+
 Provider mode is opt-in. Copy `.env.example`, supply environment variables through your deployment secret mechanism, and set `RECALLOPS_MODE=provider`. Missing configuration returns HTTP `503` with `{"error":"configuration_required"}`; there is no mock-success fallback.
 
 To create the schema, C-SPANN index, and two explicitly synthetic demo memories, run `PYTHONPATH=src python scripts/init_db.py --seed-synthetic`, then set `RECALLOPS_INCIDENT_ID=11111111-1111-4111-8111-111111111111` for the provider walkthrough. Managed MCP auditing uses the currently offered `get_table_schema` and `select_query` tools; it is read-only and rejects non-UUID run ids.
@@ -33,4 +35,4 @@ To create the schema, C-SPANN index, and two explicitly synthetic demo memories,
 
 ## Scope
 
-All incident data and actions are synthetic. The only executable action is the allowlisted `restart_synthetic_worker` simulator and it always requires approval. RecallOps does not connect to production systems, perform real remediation, expose an anonymous Lambda URL, or write through Managed MCP. The AWS preview image is deliberately `demo` mode and contains no CockroachDB credentials; provider verification is recorded separately.
+All incident data and actions are synthetic. The only executable action is the allowlisted `restart_synthetic_worker` simulator and it always requires approval. RecallOps does not connect to production systems, perform real remediation, or write through Managed MCP. The anonymous AWS judge demo accepts only the fixed synthetic incident, rejects bodies over its limit, contains no CockroachDB credentials, and is separate from provider verification.

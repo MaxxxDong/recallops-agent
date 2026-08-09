@@ -24,7 +24,7 @@ Initialize an authorized target explicitly with `PYTHONPATH=src python scripts/i
 
 ### AWS Lambda
 
-The ARM64 Docker recipe uses the AWS Python 3.12 Lambda base image and the same WSGI business entry point as local HTTP. It installs the frozen `requirements-lambda-demo.txt` profile and fixes `RECALLOPS_MODE=demo`, so the preview image contains no database or MCP secret. The verified image digest is recorded in `docs/security/evidence/aws-lambda.log`; the existing Lambda keeps an `AWS_IAM` Function URL. A future provider deployment requires a separately approved secret mechanism and cost review.
+The ARM64 Docker recipe uses the AWS Python 3.12 Lambda base image and the same WSGI business entry point as local HTTP. It installs the frozen `requirements-lambda-demo.txt` profile and fixes `RECALLOPS_MODE=demo`, so the preview image contains no database or MCP secret. The public judge deployment additionally sets `RECALLOPS_PUBLIC_DEMO=1`: only the fixed synthetic checkout incident is accepted, oversized or malformed bodies are rejected, and all actions remain simulator-only. Image digests and public-path verification are recorded in `docs/security/evidence/aws-lambda.log`. A future provider deployment requires a separately approved secret mechanism and cost review.
 
 ## Demo
 
@@ -54,7 +54,7 @@ PYTHONPATH=src python -m unittest tests.test_recallops -v     # expected exit 0
 
 Auditable outputs are under `docs/security/evidence/`. Browser artifacts are under `output/playwright/` and intentionally ignored because they are run-local corroboration; the textual browser verdict is versioned.
 
-Real provider verification is opt-in and reads only environment variables. The 2026-08-09 synthetic run exercised C-SPANN recall, LangGraph checkpoint/resume, exactly-once receipt, six Managed MCP read batches, ECR, and a four-step Lambda demo flow. See `real-provider.log` and `aws-lambda.log`; no production data, action, anonymous URL, or cloud-stored credential was used.
+Real provider verification is opt-in and reads only environment variables. The 2026-08-09 provider run exercised C-SPANN recall, LangGraph checkpoint/resume, exactly-once receipt, six Managed MCP read batches, ECR, and a four-step IAM-gated Lambda flow. On 2026-08-10 the no-secret fixed-scenario Lambda was opened for judging and reverified anonymously. See `real-provider.log` and `aws-lambda.log`; no production data, production action, or cloud-stored application credential is used.
 
 ## Pre-existing work and third-party disclosure
 

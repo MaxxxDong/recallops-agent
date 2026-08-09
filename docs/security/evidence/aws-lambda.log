@@ -25,3 +25,34 @@ four_step_flow:
   result: PASS
 
 The preview image is intentionally credential-free. Real CockroachDB and MCP provider verification is recorded separately in real-provider.log.
+
+2026-08-10 PUBLIC JUDGE DEMO VERIFICATION
+source_commit: 5888479
+image_digest: sha256:f5d31e16535f775b02ec9f1a0a740226d592bf63c5458f5b2e0bf1b1663b0db2
+function_url_auth: NONE
+public_demo_mode: fixed synthetic incident only
+memory_mb: 256
+timeout_seconds: 30
+reserved_concurrency: unavailable because the account requires 10 unreserved executions
+
+anonymous_four_step_flow:
+  statuses: 201, 200, 503, 200
+  final_status: complete
+  execution_count: 1
+  result: PASS
+
+anonymous_browser_flow:
+  create: HTTP 201 approval_required
+  approve: HTTP 200 approved
+  injected_failure: HTTP 503 recoverable
+  resume: HTTP 200 complete
+  execution_count: 1
+  result: PASS
+
+negative_probe:
+  input: non-fixed production-like target string
+  status: 400
+  error: public_demo_uses_fixed_synthetic_incident
+  result: PASS
+
+The public URL contains no provider secret and cannot execute outside the allowlisted simulator. Anonymous invocation can still consume Lambda quota; AWS Budgets has no notification subscriber configured, so no alert was created without a confirmed recipient address.
