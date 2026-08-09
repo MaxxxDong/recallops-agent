@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+
+</head>
+<body>
+<h1>RecallOps</h1>
+<p>Resumable synthetic incident memory demo. No production actions.</p>
+<label for="event">Incident event</label>
+<textarea id="event">Checkout latency rose above 2 seconds and duplicate 503 retries appeared.</textarea>
+<div>
+<button id="create">1. Create incident</button><button id="approve" disabled="">2. Approve</button><button id="execute" disabled="">3. Execute with one failure</button><button id="resume" disabled="">4. Resume</button>
+</div>
+<p id="status" role="status"></p><pre id="output" aria-live="polite"></pre>
+<script src="/ui.js"></script>
+
+
+</body>
+</html>

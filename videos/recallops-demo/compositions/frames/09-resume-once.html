@@ -1,0 +1,567 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #EEF2FF;
+      font-family: sans-serif;
+    }
+
+    #root *,
+    #root *::before,
+    #root *::after {
+      box-sizing: border-box;
+    }
+
+    #root .clip {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0B1020;
+    }
+
+    #root [data-part="field-lines"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0.24;
+      background-image:
+        linear-gradient(rgba(238, 242, 255, 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(238, 242, 255, 0.07) 1px, transparent 1px);
+      background-size: 120px 120px;
+      mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+    }
+
+    #root [data-part="caption-guard"] {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 895px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.08);
+    }
+
+    #root [data-part="camera"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    #root [data-part="zoom-outer"],
+    #root [data-part="zoom-inner"] {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    #root [data-part="world"] {
+      position: absolute;
+      inset: 0;
+      height: 900px;
+    }
+
+    #root [data-part="kicker"] {
+      position: absolute;
+      left: 80px;
+      top: 72px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-family: monospace;
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      white-space: nowrap;
+    }
+
+    #root [data-part="spike"] {
+      color: #FF7A5C;
+      font-size: 34px;
+      letter-spacing: 0;
+    }
+
+    #root [data-part="section-index"] {
+      position: absolute;
+      right: 84px;
+      top: 78px;
+      font-family: monospace;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: rgba(238, 242, 255, 0.52);
+    }
+
+    #root [data-part="key-card"] {
+      position: absolute;
+      left: 80px;
+      top: 188px;
+      width: 580px;
+      height: 132px;
+      padding: 25px 30px;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 12px;
+      background: #181818;
+    }
+
+    #root [data-part="mono-label"] {
+      font-family: monospace;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      color: rgba(238, 242, 255, 0.52);
+    }
+
+    #root [data-part="key-value"] {
+      margin-top: 17px;
+      font-family: monospace;
+      font-size: 31px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    #root [data-part="pin"] {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      width: 13px;
+      height: 13px;
+      border-radius: 9999px;
+      border: 1px solid rgba(238, 242, 255, 0.52);
+      background: #0B1020;
+    }
+
+    #root [data-part="action-card"] {
+      position: absolute;
+      left: 735px;
+      top: 374px;
+      width: 390px;
+      height: 154px;
+      padding: 24px 28px;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 8px;
+      background: #151D35;
+    }
+
+    #root [data-part="action-title"] {
+      margin-top: 19px;
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -0.018em;
+    }
+
+    #root [data-part="action-state"] {
+      position: absolute;
+      right: 24px;
+      top: 22px;
+      width: 98px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 9999px;
+      font-family: monospace;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      color: rgba(238, 242, 255, 0.62);
+    }
+
+    #root [data-part="connector"] {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 900px;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    #root [data-part="connector-track"] {
+      fill: none;
+      stroke: rgba(238, 242, 255, 0.13);
+      stroke-width: 2;
+    }
+
+    #root [data-part="connector-draw"] {
+      fill: none;
+      stroke: rgba(238, 242, 255, 0.76);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #root [data-part="connector-node"] {
+      fill: #0B1020;
+      stroke: rgba(238, 242, 255, 0.72);
+      stroke-width: 2;
+    }
+
+    #root [data-part="receipt-card"] {
+      position: absolute;
+      left: 820px;
+      top: 568px;
+      width: 420px;
+      height: 258px;
+      padding: 24px 28px;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 12px;
+      background: #181818;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+    }
+
+    #root [data-part="receipt-head"] {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(238, 242, 255, 0.12);
+      font-family: monospace;
+      font-size: 22px;
+      letter-spacing: 0.14em;
+    }
+
+    #root [data-part="receipt-seal"] {
+      width: 26px;
+      height: 26px;
+      border: 1px solid rgba(238, 242, 255, 0.54);
+      border-radius: 9999px;
+      position: relative;
+    }
+
+    #root [data-part="receipt-seal"]::after {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 5px;
+      width: 8px;
+      height: 4px;
+      border-left: 2px solid #EEF2FF;
+      border-bottom: 2px solid #EEF2FF;
+      rotate: -45deg;
+    }
+
+    #root [data-part="receipt-row"] {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 18px;
+      align-items: center;
+      min-height: 52px;
+      border-bottom: 1px solid rgba(238, 242, 255, 0.09);
+      font-family: monospace;
+      font-size: 19px;
+    }
+
+    #root [data-part="receipt-row"] span:first-child {
+      color: rgba(238, 242, 255, 0.48);
+    }
+
+    #root [data-part="receipt-row"] span:last-child {
+      text-align: right;
+      color: rgba(238, 242, 255, 0.90);
+    }
+
+    #root [data-part="count-stage"] {
+      position: absolute;
+      left: 1305px;
+      top: 260px;
+      width: 460px;
+      height: 460px;
+    }
+
+    #root [data-part="ring-svg"] {
+      position: absolute;
+      inset: 0;
+      width: 460px;
+      height: 460px;
+      overflow: visible;
+    }
+
+    #root [data-part="ring-track"] {
+      fill: #0B1020;
+      stroke: rgba(238, 242, 255, 0.13);
+      stroke-width: 10;
+    }
+
+    #root [data-part="ring-fill"] {
+      fill: none;
+      stroke: #EEF2FF;
+      stroke-width: 10;
+      stroke-linecap: round;
+      transform-origin: 230px 230px;
+      rotate: -90deg;
+    }
+
+    #root [data-part="ring-tick"] {
+      position: absolute;
+      left: 228px;
+      top: -2px;
+      width: 4px;
+      height: 26px;
+      border-radius: 2px;
+      background: rgba(238, 242, 255, 0.52);
+      transform-origin: 2px 232px;
+    }
+
+    #root [data-part="counter-wrap"] {
+      position: absolute;
+      left: 70px;
+      top: 91px;
+      width: 320px;
+      height: 230px;
+      display: grid;
+      place-items: center;
+    }
+
+    #root [data-part="counter"] {
+      display: inline-block;
+      min-width: 260px;
+      text-align: center;
+      font-size: 182px;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      font-variant-numeric: tabular-nums;
+      transform-origin: center center;
+    }
+
+    #root [data-part="hero-label"],
+    #root [data-part="hero-label-next"] {
+      position: absolute;
+      left: 50%;
+      top: 295px;
+      width: 360px;
+      margin-left: -180px;
+      text-align: center;
+      font-family: monospace;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: 0.16em;
+      white-space: nowrap;
+    }
+
+    #root [data-part="hero-label-next"] {
+      color: #EEF2FF;
+    }
+
+    #root [data-part="ring-foot"] {
+      position: absolute;
+      left: 50%;
+      top: 345px;
+      width: 280px;
+      margin-left: -140px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(238, 242, 255, 0.14);
+      text-align: center;
+      font-family: monospace;
+      font-size: 17px;
+      line-height: 1;
+      letter-spacing: 0.10em;
+      color: rgba(238, 242, 255, 0.46);
+    }
+
+    #root [data-part="retry-marker"] {
+      position: absolute;
+      right: -34px;
+      top: 40px;
+      width: 112px;
+      height: 112px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(238, 242, 255, 0.54);
+      border-radius: 9999px;
+      background: #181818;
+      font-family: monospace;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+    }
+
+    #root [data-part="retry-marker"]::before {
+      content: "↻";
+      position: absolute;
+      top: 15px;
+      font-size: 27px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    #root [data-part="retry-marker"] span {
+      padding-top: 33px;
+    }
+  </style>
+
+  <div data-hf-id="hf-idif" id="root" data-composition-id="09-resume-once" data-duration="8.869" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-0j8v" class="clip" data-start="0" data-duration="8.869" data-track-index="0">
+      <div data-hf-id="hf-etws" data-part="field-lines"></div>
+      <div data-hf-id="hf-yedg" data-part="caption-guard"></div>
+
+      <div data-hf-id="hf-40lq" id="09-resume-once-camera" data-part="camera">
+        <div data-hf-id="hf-p33a" id="09-resume-once-zoom-outer" data-part="zoom-outer">
+          <div data-hf-id="hf-6uqg" id="09-resume-once-zoom-inner" data-part="zoom-inner">
+            <div data-hf-id="hf-i8ra" data-part="world">
+              <div data-hf-id="hf-hb7q" id="09-resume-once-kicker" data-part="kicker">
+                <span data-hf-id="hf-687q" data-part="spike">✱</span>
+                <span data-hf-id="hf-d701">RESUME SAME RUN</span>
+              </div>
+              <div data-hf-id="hf-1eei" id="09-resume-once-index" data-part="section-index">09 / CONTINUITY</div>
+
+              <div data-hf-id="hf-xb49" id="09-resume-once-key" data-part="key-card">
+                <div data-hf-id="hf-exdp" data-part="mono-label">IDEMPOTENCY KEY · PINNED</div>
+                <div data-hf-id="hf-b1g4" data-part="key-value">{idempotency_key}</div>
+                <div data-hf-id="hf-favj" data-part="pin"></div>
+              </div>
+
+              <svg data-hf-id="hf-a8ah" data-part="connector" viewBox="0 0 1920 900" aria-hidden="true">
+                <path data-hf-id="hf-hdw1" data-part="connector-track" d="M660 254 C728 254 687 451 735 451" />
+                <path data-hf-id="hf-z87i" id="09-resume-once-path-one" data-part="connector-draw" d="M660 254 C728 254 687 451 735 451" />
+                <circle data-hf-id="hf-7yyl" data-part="connector-node" cx="735" cy="451" r="7" />
+                <path data-hf-id="hf-rllw" data-part="connector-track" d="M1125 451 C1242 451 1240 490 1305 490" />
+                <path data-hf-id="hf-qicl" id="09-resume-once-path-two" data-part="connector-draw" d="M1125 451 C1242 451 1240 490 1305 490" />
+              </svg>
+
+              <div data-hf-id="hf-961d" id="09-resume-once-action" data-part="action-card">
+                <div data-hf-id="hf-d12n" data-part="mono-label">RUN ACTION</div>
+                <div data-hf-id="hf-n7qh" data-part="action-title">Stalled, not lost</div>
+                <div data-hf-id="hf-qznq" data-part="action-state">PAUSED</div>
+              </div>
+
+              <div data-hf-id="hf-h1sr" id="09-resume-once-receipt" data-part="receipt-card">
+                <div data-hf-id="hf-tv19" data-part="receipt-head">
+                  <span data-hf-id="hf-w5hr">RECEIPT</span>
+                  <span data-hf-id="hf-yei1" data-part="receipt-seal"></span>
+                </div>
+                <div data-hf-id="hf-83ln" id="09-resume-once-receipt-row-one" data-part="receipt-row">
+                  <span data-hf-id="hf-68o8">key</span><span data-hf-id="hf-r393">SAME</span>
+                </div>
+                <div data-hf-id="hf-f415" id="09-resume-once-receipt-row-two" data-part="receipt-row">
+                  <span data-hf-id="hf-qwcy">state</span><span data-hf-id="hf-3h9y">RESUMED</span>
+                </div>
+                <div data-hf-id="hf-risb" id="09-resume-once-receipt-row-three" data-part="receipt-row">
+                  <span data-hf-id="hf-ale5">receipt_id</span><span data-hf-id="hf-5nz5">{receipt}</span>
+                </div>
+              </div>
+
+              <div data-hf-id="hf-hfjw" id="09-resume-once-count-stage" data-part="count-stage">
+                <svg data-hf-id="hf-zuym" data-part="ring-svg" viewBox="0 0 460 460" aria-hidden="true">
+                  <circle data-hf-id="hf-7k38" data-part="ring-track" cx="230" cy="230" r="205" />
+                  <circle data-hf-id="hf-4na6" id="09-resume-once-ring-fill" data-part="ring-fill" cx="230" cy="230" r="205" />
+                </svg>
+                <span data-hf-id="hf-ym3v" data-part="ring-tick" style="rotate: 45deg"></span>
+                <span data-hf-id="hf-uu5p" data-part="ring-tick" style="rotate: 90deg"></span>
+                <span data-hf-id="hf-srof" data-part="ring-tick" style="rotate: 135deg"></span>
+                <span data-hf-id="hf-jklv" data-part="ring-tick" style="rotate: 180deg"></span>
+                <span data-hf-id="hf-qxpn" data-part="ring-tick" style="rotate: 225deg"></span>
+                <span data-hf-id="hf-8ged" data-part="ring-tick" style="rotate: 270deg"></span>
+                <span data-hf-id="hf-6b9z" data-part="ring-tick" style="rotate: 315deg"></span>
+                <div data-hf-id="hf-nshv" data-part="counter-wrap">
+                  <span data-hf-id="hf-zvcl" id="09-resume-once-counter" data-part="counter">0</span>
+                </div>
+                <div data-hf-id="hf-b3zs" id="09-resume-once-one-label" data-part="hero-label" data-layout-allow-overlap="">ONE RECEIPT</div>
+                <div data-hf-id="hf-76lz" id="09-resume-once-execution-label" data-part="hero-label-next" data-layout-allow-overlap="">EXECUTION COUNT</div>
+                <div data-hf-id="hf-vxsu" id="09-resume-once-ring-foot" data-part="ring-foot">VERIFIED · EXACTLY ONCE</div>
+                <div data-hf-id="hf-34s3" id="09-resume-once-retry" data-part="retry-marker"><span data-hf-id="hf-01nx">RETRY</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const root = document.querySelector('[data-composition-id="09-resume-once"]');
+      const byId = (suffix) => document.getElementById(`09-resume-once-${suffix}`);
+      const camera = byId("camera");
+      const zoomOuter = byId("zoom-outer");
+      const zoomInner = byId("zoom-inner");
+      const pathOne = byId("path-one");
+      const pathTwo = byId("path-two");
+      const ringFill = byId("ring-fill");
+      const counter = byId("counter");
+      const ringTicks = root.querySelectorAll('[data-part="ring-tick"]');
+      const totalDuration = 8.469;
+
+      const pathOneLength = pathOne.getTotalLength();
+      const pathTwoLength = pathTwo.getTotalLength();
+      const ringLength = ringFill.getTotalLength();
+      pathOne.style.strokeDasharray = pathOneLength;
+      pathOne.style.strokeDashoffset = pathOneLength;
+      pathTwo.style.strokeDasharray = pathTwoLength;
+      pathTwo.style.strokeDashoffset = pathTwoLength;
+      ringFill.style.strokeDasharray = ringLength;
+      ringFill.style.strokeDashoffset = ringLength;
+
+      const tl = gsap.timeline({ paused: true });
+      const phase = { scale: 0.97 };
+      const drift = { p: 0, amp: 1 };
+      const countState = { value: 0 };
+
+      tl.to(phase, { scale: 1, duration: 1.15, ease: "power2.out" }, 0.55);
+      tl.to(phase, { scale: 1.02, duration: 1.25, ease: "power2.inOut" }, 2.45);
+      tl.to(phase, { scale: 1, duration: 0.32, ease: "power2.out" }, 7.25);
+      tl.to(drift, { amp: 0, duration: 0.25, ease: "power2.out" }, 7.45);
+      tl.to(
+        drift,
+        {
+          p: Math.PI * 2 * 1.15,
+          duration: totalDuration,
+          ease: "none",
+          onUpdate: () => {
+            const dx = Math.sin(drift.p) * 4 * drift.amp;
+            const dy = Math.sin(drift.p * 1.31) * 2.5 * drift.amp;
+            camera.style.transform = `scale(${phase.scale}) translate(${dx}px, ${dy}px)`;
+          },
+        },
+        0,
+      );
+
+      tl.fromTo(byId("kicker"), { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.52, ease: "power3.out" }, 0.05);
+      tl.fromTo(byId("index"), { opacity: 0, x: 22 }, { opacity: 1, x: 0, duration: 0.46, ease: "power2.out" }, 0.14);
+      tl.fromTo(byId("key"), { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.64, ease: "power3.out" }, 0.22);
+      tl.to(pathOne, { strokeDashoffset: 0, duration: 0.88, ease: "power2.inOut" }, 0.78);
+      tl.fromTo(byId("action"), { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.58, ease: "power3.out" }, 1.28);
+
+      tl.fromTo(byId("receipt"), { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.62, ease: "power3.out" }, 1.92);
+      tl.fromTo(byId("receipt-row-one"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.38, ease: "power2.out" }, 2.26);
+      tl.fromTo(byId("receipt-row-two"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.38, ease: "power2.out" }, 2.68);
+      tl.fromTo(byId("receipt-row-three"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.38, ease: "power2.out" }, 3.10);
+      tl.to(pathTwo, { strokeDashoffset: 0, duration: 0.86, ease: "power2.inOut" }, 2.12);
+
+      tl.fromTo(byId("count-stage"), { opacity: 0.34 }, { opacity: 1, duration: 0.72, ease: "power2.out" }, 2.08);
+      tl.to(zoomOuter, { scale: 1.50, duration: 1.45, ease: "power3.inOut" }, 2.45);
+      tl.to(zoomInner, { x: -575, y: 50, duration: 1.45, ease: "power3.inOut" }, 2.45);
+
+      tl.fromTo(ringTicks, { opacity: 0, scaleY: 0.2 }, { opacity: 1, scaleY: 1, duration: 0.42, stagger: 0.055, ease: "power2.out" }, 3.72);
+      tl.to(
+        countState,
+        {
+          value: 1,
+          duration: 1.55,
+          ease: "power3.out",
+          onUpdate: () => {
+            counter.textContent = Math.round(countState.value).toLocaleString();
+          },
+        },
+        4.10,
+      );
+      tl.fromTo(counter, { scale: 0.46 }, { scale: 1, duration: 1.55, ease: "power3.out" }, 4.10);
+      tl.to(ringFill, { strokeDashoffset: 0, duration: 1.55, ease: "power3.out" }, 4.10);
+      tl.fromTo(byId("one-label"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.50, ease: "power2.out" }, 5.20);
+      tl.fromTo(byId("ring-foot"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 5.62);
+
+      tl.fromTo(byId("retry"), { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1.08, duration: 0.32, ease: "power3.out" }, 6.30);
+      tl.to(byId("retry"), { scale: 1, duration: 0.24, ease: "power2.out" }, 6.62);
+      tl.to(byId("one-label"), { opacity: 0.18, y: -10, filter: "blur(2px)", duration: 0.34, ease: "power2.in" }, 6.34);
+      tl.fromTo(byId("execution-label"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.48, ease: "power3.out" }, 6.54);
+
+      tl.to([byId("retry"), byId("ring-foot"), ...ringTicks], { opacity: 0.16, duration: 0.44, ease: "power2.out" }, 7.50);
+      tl.to(root.querySelector('[data-part="ring-track"]'), { opacity: 0.34, duration: 0.44, ease: "power2.out" }, 7.50);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["09-resume-once"] = tl;
+    })();
+  </script>
+</template>

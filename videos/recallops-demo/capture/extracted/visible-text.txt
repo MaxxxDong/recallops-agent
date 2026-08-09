@@ -1,0 +1,8 @@
+[h1] RecallOps
+[p] Resumable synthetic incident memory demo. No production actions.
+[label] Incident event
+[textarea] Checkout latency rose above 2 seconds and duplicate 503 retries appeared.
+[button] 1. Create incident
+[button] 2. Approve
+[button] 3. Execute with one failure
+[button] 4. Resume

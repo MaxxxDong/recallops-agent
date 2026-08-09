@@ -1,0 +1,81 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "system-ui",
+      "fontSize": "32px",
+      "fontWeight": "700",
+      "lineHeight": "normal",
+      "letterSpacing": "normal",
+      "color": "#EEF2FF",
+      "sampleText": "RecallOps"
+    },
+    {
+      "role": "body",
+      "fontFamily": "system-ui",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "normal",
+      "letterSpacing": "normal",
+      "color": "#EEF2FF",
+      "sampleText": "Resumable synthetic incident memory demo. No production acti"
+    },
+    {
+      "role": "code",
+      "fontFamily": "monospace",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "normal",
+      "letterSpacing": "normal",
+      "color": "#EEF2FF",
+      "sampleText": ""
+    }
+  ],
+  "spacing": {
+    "observed": [
+      5,
+      11,
+      16
+    ],
+    "baseUnit": 8
+  },
+  "radius": [],
+  "shadows": [],
+  "buttons": [
+    {
+      "label": "1. Create incident",
+      "background": "#EFEFEF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "11.2px 16px",
+      "borderRadius": "0px",
+      "border": "2px outset rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "13.3333px",
+      "fontWeight": "400",
+      "height": "41.375px"
+    },
+    {
+      "label": "2. Approve",
+      "background": "#EFEFEF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#101010",
+      "padding": "11.2px 16px",
+      "borderRadius": "0px",
+      "border": "2px outset rgba(118, 118, 118, 0.3)",
+      "boxShadow": "none",
+      "fontSize": "13.3333px",
+      "fontWeight": "400",
+      "height": "41.375px"
+    }
+  ],
+  "cards": [],
+  "nav": null,
+  "chips": [],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [],
+  "glass": []
+}

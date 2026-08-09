@@ -1,0 +1,538 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <style>
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #EEF2FF;
+      font-family: sans-serif;
+    }
+
+    #root * {
+      box-sizing: border-box;
+    }
+
+    .\30 5-vector-memory-bg {
+      position: absolute;
+      inset: 0;
+      background: #0B1020;
+    }
+
+    .\30 5-vector-memory-workspace {
+      position: absolute;
+      inset: 0;
+      height: 896px;
+      overflow: hidden;
+    }
+
+    .\30 5-vector-memory-frame-label {
+      position: absolute;
+      top: 66px;
+      left: 80px;
+      display: flex;
+      align-items: center;
+      font-family: monospace;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(238, 242, 255, 0.58);
+    }
+
+    .\30 5-vector-memory-grid {
+      position: absolute;
+      left: 80px;
+      top: 126px;
+      width: 1760px;
+      height: 706px;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 12px;
+      background: #181818;
+      overflow: hidden;
+    }
+
+    .\30 5-vector-memory-grid::before {
+      content: "";
+      position: absolute;
+      left: 700px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(238, 242, 255, 0.08);
+    }
+
+    .\30 5-vector-memory-query-zone {
+      position: absolute;
+      left: 42px;
+      top: 34px;
+      width: 616px;
+      height: 638px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .\30 5-vector-memory-query-label,
+    .\30 5-vector-memory-results-label {
+      margin-bottom: 18px;
+      font-family: monospace;
+      font-size: 20px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(238, 242, 255, 0.52);
+    }
+
+    .\30 5-vector-memory-query-card {
+      position: relative;
+      width: 100%;
+      min-height: 246px;
+      padding: 34px 34px 30px;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 12px;
+      background: #151D35;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+      transform-origin: 50% 50%;
+    }
+
+    .\30 5-vector-memory-query-kicker {
+      margin-bottom: 28px;
+      font-family: monospace;
+      font-size: 20px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(238, 242, 255, 0.55);
+    }
+
+    .\30 5-vector-memory-query-line {
+      min-height: 76px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(238, 242, 255, 0.14);
+      font-size: 38px;
+      line-height: 1.28;
+      letter-spacing: -0.018em;
+      color: #EEF2FF;
+    }
+
+    .\30 5-vector-memory-caret {
+      display: inline-block;
+      width: 3px;
+      height: 41px;
+      margin-left: 5px;
+      vertical-align: -7px;
+      background: #EEF2FF;
+    }
+
+    .\30 5-vector-memory-submit-stage {
+      position: relative;
+      height: 58px;
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .\30 5-vector-memory-submit-burst {
+      position: absolute;
+      right: 0;
+      width: 146px;
+      height: 48px;
+      border-radius: 9999px;
+      background: rgba(238, 242, 255, 0.16);
+      z-index: 1;
+      filter: blur(18px);
+      opacity: 0;
+    }
+
+    .\30 5-vector-memory-submit {
+      position: relative;
+      z-index: 2;
+      min-width: 146px;
+      height: 48px;
+      padding: 0 26px;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 9999px;
+      background: #253355;
+      color: #EEF2FF;
+      font-family: monospace;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+      transform-origin: 50% 50%;
+    }
+
+    .\30 5-vector-memory-index-status {
+      position: absolute;
+      left: 0;
+      top: calc(50% + 156px);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-family: monospace;
+      font-size: 19px;
+      letter-spacing: 0.1em;
+      color: rgba(238, 242, 255, 0.68);
+    }
+
+    .\30 5-vector-memory-index-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 9999px;
+      background: #EEF2FF;
+    }
+
+    .\30 5-vector-memory-results-zone {
+      position: absolute;
+      left: 772px;
+      top: 34px;
+      width: 946px;
+      height: 638px;
+    }
+
+    .\30 5-vector-memory-memory-card {
+      position: absolute;
+      left: 50px;
+      width: 896px;
+      height: 274px;
+      padding: 30px 34px;
+      border: 1px solid rgba(238, 242, 255, 0.14);
+      border-radius: 12px;
+      background: #151D35;
+    }
+
+    .\30 5-vector-memory-memory-card.is-first {
+      top: 48px;
+    }
+
+    .\30 5-vector-memory-memory-card.is-second {
+      top: 346px;
+    }
+
+    .\30 5-vector-memory-memory-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      margin-bottom: 25px;
+    }
+
+    .\30 5-vector-memory-memory-index {
+      font-family: monospace;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(238, 242, 255, 0.52);
+    }
+
+    .\30 5-vector-memory-relevance {
+      padding: 7px 12px;
+      border: 1px solid rgba(238, 242, 255, 0.14);
+      border-radius: 9999px;
+      font-family: monospace;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(238, 242, 255, 0.64);
+    }
+
+    .\30 5-vector-memory-memory-title {
+      margin-bottom: 25px;
+      font-size: 35px;
+      line-height: 1.18;
+      letter-spacing: -0.012em;
+      color: #EEF2FF;
+    }
+
+    .\30 5-vector-memory-provenance {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr 1fr;
+      gap: 12px;
+      padding-top: 19px;
+      border-top: 1px solid rgba(238, 242, 255, 0.12);
+    }
+
+    .\30 5-vector-memory-field-label {
+      margin-bottom: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(238, 242, 255, 0.42);
+    }
+
+    .\30 5-vector-memory-field-value {
+      font-family: monospace;
+      font-size: 18px;
+      line-height: 1.25;
+      color: rgba(238, 242, 255, 0.78);
+    }
+
+    .\30 5-vector-memory-provenance-rail {
+      position: absolute;
+      left: 726px;
+      top: 173px;
+      width: 2px;
+      height: 410px;
+      background: #FF7A5C;
+      transform-origin: 50% 0%;
+    }
+
+    .\30 5-vector-memory-rail-branch {
+      position: absolute;
+      left: 726px;
+      width: 96px;
+      height: 2px;
+      background: #FF7A5C;
+      transform-origin: 0% 50%;
+    }
+
+    .\30 5-vector-memory-rail-branch.is-top {
+      top: 246px;
+    }
+
+    .\30 5-vector-memory-rail-branch.is-bottom {
+      top: 544px;
+    }
+
+    .\30 5-vector-memory-rail-origin {
+      position: absolute;
+      left: 718px;
+      top: 165px;
+      width: 18px;
+      height: 18px;
+      border: 3px solid #FF7A5C;
+      border-radius: 9999px;
+      background: #181818;
+    }
+  </style>
+
+  <div data-hf-id="hf-xobo" id="root" data-composition-id="05-vector-memory" data-duration="9.993" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-io63" class="clip 05-vector-memory-bg" data-start="0" data-duration="9.993" data-track-index="0"></div>
+
+    <div data-hf-id="hf-phek" class="clip 05-vector-memory-workspace" data-start="0" data-duration="9.993" data-track-index="1">
+      <div data-hf-id="hf-w0ps" class="05-vector-memory-frame-label">
+        <span data-hf-id="hf-wtku">Memory retrieval / provenance</span>
+      </div>
+
+      <div data-hf-id="hf-5a16" class="05-vector-memory-grid" id="05-vector-memory-grid">
+        <section data-hf-id="hf-dg1p" class="05-vector-memory-query-zone">
+          <div data-hf-id="hf-6ejd" class="05-vector-memory-query-label">Query</div>
+          <div data-hf-id="hf-ft2k" class="05-vector-memory-query-card" id="05-vector-memory-query-card">
+            <div data-hf-id="hf-fsn9" class="05-vector-memory-query-kicker">Incident memory</div>
+            <div data-hf-id="hf-g9fd" class="05-vector-memory-query-line">
+              <span data-hf-id="hf-mco4" id="05-vector-memory-query-text"></span><span data-hf-id="hf-lcjn" class="05-vector-memory-caret" id="05-vector-memory-caret"></span>
+            </div>
+            <div data-hf-id="hf-v0if" class="05-vector-memory-submit-stage">
+              <div data-hf-id="hf-as3c" class="05-vector-memory-submit-burst" id="05-vector-memory-submit-burst"></div>
+              <button data-hf-id="hf-s7k8" class="05-vector-memory-submit" id="05-vector-memory-submit" type="button">Retrieve</button>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-s6bs" class="05-vector-memory-index-status" id="05-vector-memory-index-status">
+            <span data-hf-id="hf-mv1t" class="05-vector-memory-index-dot"></span>
+            <span data-hf-id="hf-cuvx">Distributed Vector Index</span>
+          </div>
+        </section>
+
+        <section data-hf-id="hf-ftn7" class="05-vector-memory-results-zone">
+          <div data-hf-id="hf-54ba" class="05-vector-memory-results-label" id="05-vector-memory-results-label">Relevant memory</div>
+
+          <article data-hf-id="hf-dxrf" class="05-vector-memory-memory-card is-first" id="05-vector-memory-memory-1">
+            <div data-hf-id="hf-zyjn" class="05-vector-memory-memory-topline">
+              <span data-hf-id="hf-cefr" class="05-vector-memory-memory-index">Memory 01</span>
+              <span data-hf-id="hf-tudn" class="05-vector-memory-relevance">Relevant</span>
+            </div>
+            <div data-hf-id="hf-0pav" class="05-vector-memory-memory-title">Duplicate checkout retry</div>
+            <div data-hf-id="hf-270y" class="05-vector-memory-provenance" id="05-vector-memory-provenance-1">
+              <div data-hf-id="hf-yeow">
+                <div data-hf-id="hf-hr2u" class="05-vector-memory-field-label">Source</div>
+                <div data-hf-id="hf-1u4p" class="05-vector-memory-field-value">{source}</div>
+              </div>
+              <div data-hf-id="hf-y7yw">
+                <div data-hf-id="hf-o8pv" class="05-vector-memory-field-label">Observed</div>
+                <div data-hf-id="hf-xt64" class="05-vector-memory-field-value">{observed_at}</div>
+              </div>
+              <div data-hf-id="hf-x11t">
+                <div data-hf-id="hf-4mwh" class="05-vector-memory-field-label">Incident</div>
+                <div data-hf-id="hf-ewme" class="05-vector-memory-field-value">{incident_id}</div>
+              </div>
+            </div>
+          </article>
+
+          <article data-hf-id="hf-wl62" class="05-vector-memory-memory-card is-second" id="05-vector-memory-memory-2">
+            <div data-hf-id="hf-qvfn" class="05-vector-memory-memory-topline">
+              <span data-hf-id="hf-c04q" class="05-vector-memory-memory-index">Memory 02</span>
+              <span data-hf-id="hf-nzaj" class="05-vector-memory-relevance">Relevant</span>
+            </div>
+            <div data-hf-id="hf-iyfc" class="05-vector-memory-memory-title">503 latency pattern</div>
+            <div data-hf-id="hf-y8wx" class="05-vector-memory-provenance" id="05-vector-memory-provenance-2">
+              <div data-hf-id="hf-xfcu">
+                <div data-hf-id="hf-y9fe" class="05-vector-memory-field-label">Source</div>
+                <div data-hf-id="hf-rhdp" class="05-vector-memory-field-value">{source}</div>
+              </div>
+              <div data-hf-id="hf-w8fr">
+                <div data-hf-id="hf-5nhf" class="05-vector-memory-field-label">Observed</div>
+                <div data-hf-id="hf-vgqs" class="05-vector-memory-field-value">{observed_at}</div>
+              </div>
+              <div data-hf-id="hf-wmqs">
+                <div data-hf-id="hf-iz8l" class="05-vector-memory-field-label">Incident</div>
+                <div data-hf-id="hf-q696" class="05-vector-memory-field-value">{incident_id}</div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <div data-hf-id="hf-rfdm" class="05-vector-memory-provenance-rail" id="05-vector-memory-provenance-rail"></div>
+        <div data-hf-id="hf-jixz" class="05-vector-memory-rail-branch is-top" id="05-vector-memory-rail-top"></div>
+        <div data-hf-id="hf-qia7" class="05-vector-memory-rail-branch is-bottom" id="05-vector-memory-rail-bottom"></div>
+        <div data-hf-id="hf-rtdq" class="05-vector-memory-rail-origin" id="05-vector-memory-rail-origin"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const frameId = "05-vector-memory";
+      const frame = document.querySelector('[data-composition-id="05-vector-memory"]');
+      if (!frame || typeof gsap === "undefined") return;
+
+      const select = (selector) => {
+        if (selector.startsWith("#")) {
+          return document.getElementById(selector.slice(1));
+        }
+        return frame.querySelector(selector);
+      };
+      const queryText = select("#05-vector-memory-query-text");
+      const caret = select("#05-vector-memory-caret");
+      const query = "checkout duplicate 503 latency";
+      const tl = gsap.timeline({ paused: true });
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[frameId] = tl;
+
+      tl.fromTo(
+        select("#05-vector-memory-query-card"),
+        { opacity: 0, y: 24, scale: 0.985 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power2.out" },
+        0.05
+      );
+      tl.fromTo(
+        select('[class~="05-vector-memory-frame-label"]'),
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.38, ease: "power2.out" },
+        0.12
+      );
+      tl.set(queryText, { textContent: "" }, 0);
+
+      for (let index = 0; index < query.length; index += 1) {
+        const time = 0.42 + index * 0.047;
+        tl.set(queryText, { textContent: query.slice(0, index + 1) }, time);
+      }
+
+      for (let time = 0.25; time < 9.493; time += 0.42) {
+        tl.set(caret, { opacity: Math.floor(time / 0.42) % 2 === 0 ? 1 : 0.22 }, time);
+      }
+
+      tl.to(
+        select("#05-vector-memory-submit"),
+        {
+          scale: 0.92,
+          boxShadow: "0 1px 2px rgba(238, 242, 255, 0.05)",
+          duration: 0.18,
+          ease: "power1.in"
+        },
+        2.0
+      );
+      tl.to(
+        select("#05-vector-memory-submit"),
+        {
+          scale: 1,
+          boxShadow: "0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04)",
+          duration: 0.58,
+          ease: "back.out(1.8)"
+        },
+        2.18
+      );
+      tl.fromTo(
+        select("#05-vector-memory-submit-burst"),
+        { scale: 1, opacity: 0 },
+        { scale: 3.2, opacity: 0.6, duration: 0.48, ease: "power2.out" },
+        2.18
+      );
+      tl.to(
+        select("#05-vector-memory-submit-burst"),
+        { opacity: 0, duration: 0.46, ease: "power2.in" },
+        2.58
+      );
+      tl.fromTo(
+        select("#05-vector-memory-index-status"),
+        { opacity: 0, x: -18 },
+        { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" },
+        2.42
+      );
+
+      tl.fromTo(
+        select("#05-vector-memory-results-label"),
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.38, ease: "power2.out" },
+        4.3
+      );
+      tl.fromTo(
+        select("#05-vector-memory-memory-1"),
+        { opacity: 0, x: 54, y: 14 },
+        { opacity: 1, x: 0, y: 0, duration: 0.58, ease: "power3.out" },
+        4.45
+      );
+      tl.fromTo(
+        select("#05-vector-memory-provenance-1").children,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.18, ease: "power2.out" },
+        5.1
+      );
+      tl.fromTo(
+        select("#05-vector-memory-memory-2"),
+        { opacity: 0, x: 54, y: 14 },
+        { opacity: 1, x: 0, y: 0, duration: 0.58, ease: "power3.out" },
+        5.9
+      );
+      tl.fromTo(
+        select("#05-vector-memory-provenance-2").children,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.18, ease: "power2.out" },
+        6.56
+      );
+
+      tl.fromTo(
+        select("#05-vector-memory-provenance-rail"),
+        { scaleY: 0, opacity: 0 },
+        { scaleY: 1, opacity: 1, duration: 0.72, ease: "power2.out" },
+        7.6
+      );
+      tl.fromTo(
+        [select("#05-vector-memory-rail-top"), select("#05-vector-memory-rail-bottom")],
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 1, opacity: 1, duration: 0.52, stagger: 0.12, ease: "power2.out" },
+        8.0
+      );
+      tl.fromTo(
+        select("#05-vector-memory-rail-origin"),
+        { opacity: 0, scale: 0.72 },
+        { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.45)" },
+        8.14
+      );
+      tl.to(
+        select("#05-vector-memory-query-card"),
+        { x: -8, duration: 0.78, ease: "power2.out" },
+        7.72
+      );
+      tl.to(
+        [select("#05-vector-memory-memory-1"), select("#05-vector-memory-memory-2")],
+        { x: 8, duration: 0.78, ease: "power2.out" },
+        7.72
+      );
+    })();
+  </script>
+</template>

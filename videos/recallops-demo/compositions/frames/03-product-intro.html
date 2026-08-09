@@ -1,0 +1,497 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #EEF2FF;
+      font-family: sans-serif;
+    }
+
+    [class~="03-product-intro-bg"] {
+      position: absolute;
+      inset: 0;
+      background: #0B1020;
+    }
+
+    [class~="03-product-intro-scene"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      perspective: 1400px;
+    }
+
+    [class~="03-product-intro-grid"] {
+      position: absolute;
+      inset: 64px 80px 188px;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 12px;
+    }
+
+    [class~="03-product-intro-rail"] {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      height: 72px;
+      padding: 0 24px;
+      border: 1px solid rgba(238, 242, 255, 0.2);
+      border-radius: 8px;
+      background: #181818;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+      box-sizing: border-box;
+    }
+
+    [class~="03-product-intro-rail"]::after {
+      content: "";
+      position: absolute;
+      background: rgba(238, 242, 255, 0.2);
+    }
+
+    [class~="03-product-intro-rail-dot"] {
+      width: 12px;
+      height: 12px;
+      border: 1px solid rgba(238, 242, 255, 0.45);
+      border-radius: 9999px;
+      box-sizing: border-box;
+    }
+
+    [class~="03-product-intro-rail-label"] {
+      font-family: monospace;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+
+    [class~="03-product-intro-rail-incident"] {
+      top: 248px;
+      left: 104px;
+      width: 334px;
+    }
+
+    [class~="03-product-intro-rail-incident"]::after {
+      top: 35px;
+      left: 100%;
+      width: 328px;
+      height: 1px;
+    }
+
+    [class~="03-product-intro-rail-memory"] {
+      top: 124px;
+      left: 816px;
+      width: 288px;
+      justify-content: center;
+    }
+
+    [class~="03-product-intro-rail-memory"]::after {
+      top: 100%;
+      left: 143px;
+      width: 1px;
+      height: 122px;
+    }
+
+    [class~="03-product-intro-rail-approval"] {
+      top: 248px;
+      right: 104px;
+      width: 334px;
+      justify-content: flex-end;
+    }
+
+    [class~="03-product-intro-rail-approval"]::after {
+      top: 35px;
+      right: 100%;
+      width: 328px;
+      height: 1px;
+    }
+
+    [class~="03-product-intro-rail-receipt"] {
+      top: 724px;
+      left: 816px;
+      width: 288px;
+      justify-content: center;
+    }
+
+    [class~="03-product-intro-rail-receipt"]::after {
+      bottom: 100%;
+      left: 143px;
+      width: 1px;
+      height: 120px;
+    }
+
+    [class~="03-product-intro-connector-map"] {
+      position: absolute;
+      z-index: 3;
+      top: 200px;
+      left: 520px;
+      width: 880px;
+      height: 480px;
+      overflow: visible;
+    }
+
+    [class~="03-product-intro-connector"] {
+      fill: none;
+      stroke: rgba(238, 242, 255, 0.44);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    [class~="03-product-intro-glyph-outline"] {
+      fill: #0B1020;
+      stroke: rgba(238, 242, 255, 0.74);
+      stroke-width: 2;
+    }
+
+    [class~="03-product-intro-glyph-node"] {
+      fill: #181818;
+      stroke: rgba(238, 242, 255, 0.74);
+      stroke-width: 2;
+    }
+
+    [class~="03-product-intro-approval-node"] {
+      fill: #FF7A5C;
+      stroke: #FF7A5C;
+      stroke-width: 2;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    [class~="03-product-intro-approval-pulse"] {
+      fill: none;
+      stroke: #FF7A5C;
+      stroke-width: 3;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    [class~="03-product-intro-glyph-shell"] {
+      position: absolute;
+      z-index: 5;
+      top: 352px;
+      left: 874px;
+      width: 172px;
+      height: 172px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    [class~="03-product-intro-glyph-shell"] svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    [class~="03-product-intro-glyph-segment"] {
+      fill: none;
+      stroke: #EEF2FF;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    [class~="03-product-intro-wordmark-stage"] {
+      position: absolute;
+      z-index: 6;
+      top: 438px;
+      left: 960px;
+      width: 0;
+      height: 0;
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    [class~="03-product-intro-frag"] {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: #EEF2FF;
+      font-size: 158px;
+      font-weight: 400;
+      line-height: 0.88;
+      letter-spacing: -0.028em;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+    }
+
+    [class~="03-product-intro-tagline"] {
+      position: absolute;
+      z-index: 7;
+      top: 566px;
+      left: 598px;
+      width: 724px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(238, 242, 255, 0.2);
+      color: rgba(238, 242, 255, 0.72);
+      font-family: monospace;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-align: center;
+    }
+  </style>
+
+  <div data-hf-id="hf-sbwo" id="root" data-composition-id="03-product-intro" data-duration="8.863" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-hny1" class="clip 03-product-intro-bg" data-start="0" data-duration="8.863" data-track-index="0"></div>
+
+    <div data-hf-id="hf-6wwr" class="clip 03-product-intro-scene" data-start="0" data-duration="8.863" data-track-index="1">
+      <div data-hf-id="hf-j20d" class="03-product-intro-grid"></div>
+
+      <div data-hf-id="hf-b92p" class="03-product-intro-rail 03-product-intro-rail-incident" data-rail="incident">
+        <span data-hf-id="hf-g3l4" class="03-product-intro-rail-dot"></span>
+        <span data-hf-id="hf-ks8d" class="03-product-intro-rail-label">INCIDENT</span>
+      </div>
+
+      <div data-hf-id="hf-1q7r" class="03-product-intro-rail 03-product-intro-rail-memory" data-rail="memory">
+        <span data-hf-id="hf-3k80" class="03-product-intro-rail-dot"></span>
+        <span data-hf-id="hf-61sg" class="03-product-intro-rail-label">MEMORY</span>
+      </div>
+
+      <div data-hf-id="hf-5pdb" class="03-product-intro-rail 03-product-intro-rail-approval" data-rail="approval">
+        <span data-hf-id="hf-yus4" class="03-product-intro-rail-label">APPROVAL</span>
+        <span data-hf-id="hf-2dax" class="03-product-intro-rail-dot"></span>
+      </div>
+
+      <div data-hf-id="hf-xv2x" class="03-product-intro-rail 03-product-intro-rail-receipt" data-rail="receipt">
+        <span data-hf-id="hf-2rly" class="03-product-intro-rail-dot"></span>
+        <span data-hf-id="hf-bobt" class="03-product-intro-rail-label">RECEIPT</span>
+      </div>
+
+      <svg data-hf-id="hf-brak" class="03-product-intro-connector-map" viewBox="0 0 880 480" aria-hidden="true">
+        <path data-hf-id="hf-34tg" class="03-product-intro-connector" d="M 0 84 H 270 Q 300 84 300 114 V 190" />
+        <path data-hf-id="hf-kwek" class="03-product-intro-connector" d="M 440 0 V 98 Q 440 124 414 124 H 360" />
+        <path data-hf-id="hf-xlmm" class="03-product-intro-connector" d="M 880 84 H 610 Q 580 84 580 114 V 190" />
+        <path data-hf-id="hf-lu6w" class="03-product-intro-connector" d="M 440 480 V 362 Q 440 336 414 336 H 360" />
+        <path data-hf-id="hf-id7k" class="03-product-intro-connector" d="M 300 190 H 580 V 290 H 300 Z" />
+        <path data-hf-id="hf-7lsk" class="03-product-intro-connector" d="M 360 124 V 190" />
+        <path data-hf-id="hf-082o" class="03-product-intro-connector" d="M 360 290 V 336" />
+        <circle data-hf-id="hf-gwu6" class="03-product-intro-glyph-outline" cx="300" cy="240" r="22" />
+        <circle data-hf-id="hf-jmut" class="03-product-intro-glyph-node" cx="440" cy="190" r="22" />
+        <circle data-hf-id="hf-kc6r" class="03-product-intro-approval-node" cx="580" cy="240" r="22" />
+        <circle data-hf-id="hf-8afs" class="03-product-intro-approval-pulse" cx="580" cy="240" r="28" />
+        <circle data-hf-id="hf-th40" class="03-product-intro-glyph-node" cx="440" cy="290" r="22" />
+      </svg>
+
+      <div data-hf-id="hf-z418" class="03-product-intro-glyph-shell">
+        <svg data-hf-id="hf-jxk8" viewBox="0 0 172 172" aria-hidden="true">
+          <path data-hf-id="hf-oraz" class="03-product-intro-glyph-segment" d="M 36 48 H 92 Q 122 48 122 78 Q 122 108 92 108 H 52" />
+          <path data-hf-id="hf-q1ku" class="03-product-intro-glyph-segment" d="M 52 108 L 118 142" />
+          <path data-hf-id="hf-dl0x" class="03-product-intro-glyph-segment" d="M 36 48 V 142" />
+        </svg>
+      </div>
+
+      <div data-hf-id="hf-094n" class="03-product-intro-wordmark-stage" aria-label="RecallOps">
+        <span data-hf-id="hf-j0r2" class="03-product-intro-frag" data-target-x="-350" data-target-y="0">R</span>
+        <span data-hf-id="hf-vezm" class="03-product-intro-frag" data-target-x="-252" data-target-y="0">e</span>
+        <span data-hf-id="hf-dg9d" class="03-product-intro-frag" data-target-x="-174" data-target-y="0">c</span>
+        <span data-hf-id="hf-u26e" class="03-product-intro-frag" data-target-x="-96" data-target-y="0">a</span>
+        <span data-hf-id="hf-buc5" class="03-product-intro-frag" data-target-x="-16" data-target-y="0">l</span>
+        <span data-hf-id="hf-lito" class="03-product-intro-frag" data-target-x="32" data-target-y="0">l</span>
+        <span data-hf-id="hf-z2kw" class="03-product-intro-frag" data-target-x="116" data-target-y="0">O</span>
+        <span data-hf-id="hf-2qiz" class="03-product-intro-frag" data-target-x="226" data-target-y="0">p</span>
+        <span data-hf-id="hf-0oim" class="03-product-intro-frag" data-target-x="312" data-target-y="0">s</span>
+      </div>
+
+      <div data-hf-id="hf-ckaq" class="03-product-intro-tagline">RESUMABLE INCIDENT AGENT</div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.querySelector('[data-composition-id="03-product-intro"]');
+      const q = (selector) => root.querySelector(selector);
+      const qa = (selector) => Array.from(root.querySelectorAll(selector));
+      const tl = gsap.timeline({ paused: true });
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["03-product-intro"] = tl;
+
+      const railIncident = q('[data-rail="incident"]');
+      const railMemory = q('[data-rail="memory"]');
+      const railApproval = q('[data-rail="approval"]');
+      const railReceipt = q('[data-rail="receipt"]');
+      const labels = qa('[class~="03-product-intro-rail-label"]');
+      const paths = qa('[class~="03-product-intro-connector"]');
+      const glyphNodes = qa('[class~="03-product-intro-glyph-node"], [class~="03-product-intro-glyph-outline"], [class~="03-product-intro-approval-node"]');
+      const glyphShell = q('[class~="03-product-intro-glyph-shell"]');
+      const glyphSegments = qa('[class~="03-product-intro-glyph-segment"]');
+      const pulse = q('[class~="03-product-intro-approval-pulse"]');
+      const wordmarkStage = q('[class~="03-product-intro-wordmark-stage"]');
+      const frags = qa('[class~="03-product-intro-frag"]');
+      const tagline = q('[class~="03-product-intro-tagline"]');
+
+      labels.forEach((label) => gsap.set(label, { opacity: 0 }));
+      gsap.set(glyphNodes, { opacity: 0, scale: 0.7, transformOrigin: "center" });
+      gsap.set(pulse, { opacity: 0, scale: 0.65, transformOrigin: "center" });
+      gsap.set(tagline, { opacity: 0, clipPath: "inset(0 100% 0 0)" });
+
+      paths.concat(glyphSegments).forEach((path) => {
+        const length = path.getTotalLength();
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
+      });
+
+      const GOLDEN = Math.PI * (3 - Math.sqrt(5));
+      const count = frags.length;
+      const scatter = frags.map((fragment, index) => {
+        const angle = index * GOLDEN;
+        const depthT = count > 1 ? index / (count - 1) : 0;
+        return {
+          x: Math.cos(angle) * 470,
+          y: Math.sin(angle) * 270,
+          z: 320 - depthT * 690,
+          rotationX: Math.sin(angle) * 72,
+          rotationY: Math.cos(angle) * 72,
+        };
+      });
+
+      frags.forEach((fragment, index) => {
+        gsap.set(fragment, {
+          xPercent: -50,
+          yPercent: -50,
+          ...scatter[index],
+          opacity: 0,
+        });
+      });
+
+      tl.fromTo(
+        railIncident,
+        { x: -560, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.72, ease: "power3.out" },
+        0.08,
+      );
+      tl.fromTo(
+        railMemory,
+        { y: -300, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.76, ease: "power3.out" },
+        0.32,
+      );
+      tl.fromTo(
+        railApproval,
+        { x: 560, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.78, ease: "power3.out" },
+        0.62,
+      );
+      tl.fromTo(
+        railReceipt,
+        { y: 300, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.82, ease: "power3.out" },
+        0.96,
+      );
+
+      tl.fromTo(
+        railIncident.querySelector('[class~="03-product-intro-rail-label"]'),
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.42, ease: "power2.out" },
+        0.48,
+      );
+      tl.fromTo(
+        railMemory.querySelector('[class~="03-product-intro-rail-label"]'),
+        { opacity: 0, y: -14 },
+        { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" },
+        2.16,
+      );
+      tl.fromTo(
+        railApproval.querySelector('[class~="03-product-intro-rail-label"]'),
+        { opacity: 0, x: 20 },
+        { opacity: 1, x: 0, duration: 0.42, ease: "power2.out" },
+        3.28,
+      );
+      tl.fromTo(
+        railReceipt.querySelector('[class~="03-product-intro-rail-label"]'),
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" },
+        4.22,
+      );
+
+      paths.forEach((path, index) => {
+        tl.to(
+          path,
+          { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" },
+          2.0 + index * 0.29,
+        );
+      });
+
+      glyphNodes.forEach((node, index) => {
+        tl.fromTo(
+          node,
+          { opacity: 0, scale: 0.7, transformOrigin: "center" },
+          { opacity: 1, scale: 1, duration: 0.38, ease: "power2.out" },
+          3.0 + index * 0.34,
+        );
+      });
+
+      glyphSegments.forEach((segment, index) => {
+        tl.to(
+          segment,
+          { strokeDashoffset: 0, duration: index === glyphSegments.length - 1 ? 0.46 : 0.62, ease: "power2.out" },
+          3.42 + index * 0.46,
+        );
+      });
+
+      tl.fromTo(
+        wordmarkStage,
+        { rotationY: -24 },
+        { rotationY: 0, duration: 1.82, ease: "power1.out" },
+        4.8,
+      );
+
+      frags.forEach((fragment, index) => {
+        tl.fromTo(
+          fragment,
+          {
+            xPercent: -50,
+            yPercent: -50,
+            ...scatter[index],
+            opacity: 0,
+          },
+          {
+            x: Number(fragment.dataset.targetX),
+            y: Number(fragment.dataset.targetY),
+            z: 0,
+            rotationX: 0,
+            rotationY: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out",
+          },
+          4.8 + index * 0.07,
+        );
+      });
+
+      tl.fromTo(
+        glyphShell,
+        { x: 0, y: 0, scale: 1, rotationY: 0 },
+        { x: -424, y: 8, scale: 0.34, rotationY: 0, duration: 1.38, ease: "power3.out" },
+        4.86,
+      );
+
+      tl.fromTo(
+        tagline,
+        { opacity: 0, clipPath: "inset(0 100% 0 0)" },
+        { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.72, ease: "power2.out" },
+        6.08,
+      );
+
+      tl.fromTo(
+        pulse,
+        { opacity: 0, scale: 0.65, transformOrigin: "center" },
+        { opacity: 0.9, scale: 1.05, duration: 0.18, ease: "power2.out" },
+        6.94,
+      );
+      tl.to(
+        pulse,
+        { opacity: 0, scale: 2.35, duration: 0.68, ease: "power2.out" },
+        7.12,
+      );
+    })();
+  </script>
+</template>

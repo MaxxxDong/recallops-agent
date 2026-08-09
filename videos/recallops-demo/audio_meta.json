@@ -1,0 +1,1095 @@
+{
+  "bgm": null,
+  "bgm_pending": false,
+  "voices": [
+    {
+      "frame": 1,
+      "path": "assets/voice/01.wav",
+      "duration_s": 6.4,
+      "words": []
+    },
+    {
+      "frame": 2,
+      "path": "assets/voice/02.wav",
+      "duration_s": 6.784,
+      "words": []
+    },
+    {
+      "frame": 3,
+      "path": "assets/voice/03.wav",
+      "duration_s": 8.363,
+      "words": []
+    },
+    {
+      "frame": 4,
+      "path": "assets/voice/04.wav",
+      "duration_s": 9.941,
+      "words": []
+    },
+    {
+      "frame": 5,
+      "path": "assets/voice/05.wav",
+      "duration_s": 9.493,
+      "words": [
+        {
+          "id": "w0",
+          "text": "CockroachDB's",
+          "start": 0.03,
+          "end": 0.87
+        },
+        {
+          "id": "w1",
+          "text": "Distributed",
+          "start": 0.87,
+          "end": 1.6
+        },
+        {
+          "id": "w2",
+          "text": "Vector",
+          "start": 1.67,
+          "end": 2.02
+        },
+        {
+          "id": "w3",
+          "text": "Index",
+          "start": 2.02,
+          "end": 2.29
+        },
+        {
+          "id": "w4",
+          "text": "retrieves",
+          "start": 2.4,
+          "end": 3.09
+        },
+        {
+          "id": "w5",
+          "text": "relevant",
+          "start": 3.09,
+          "end": 3.67
+        },
+        {
+          "id": "w6",
+          "text": "incident",
+          "start": 3.7,
+          "end": 4.31
+        },
+        {
+          "id": "w7",
+          "text": "memory.",
+          "start": 4.31,
+          "end": 5.04
+        },
+        {
+          "id": "w8",
+          "text": "Every",
+          "start": 5.07,
+          "end": 5.38
+        },
+        {
+          "id": "w9",
+          "text": "result",
+          "start": 5.38,
+          "end": 5.75
+        },
+        {
+          "id": "w10",
+          "text": "keeps",
+          "start": 5.8,
+          "end": 6.13
+        },
+        {
+          "id": "w11",
+          "text": "its",
+          "start": 6.13,
+          "end": 6.33
+        },
+        {
+          "id": "w12",
+          "text": "source,",
+          "start": 6.33,
+          "end": 6.9
+        },
+        {
+          "id": "w13",
+          "text": "observation",
+          "start": 6.92,
+          "end": 7.66
+        },
+        {
+          "id": "w14",
+          "text": "time",
+          "start": 7.66,
+          "end": 7.9
+        },
+        {
+          "id": "w15",
+          "text": "and",
+          "start": 7.97,
+          "end": 8.13
+        },
+        {
+          "id": "w16",
+          "text": "incident",
+          "start": 8.13,
+          "end": 8.65
+        },
+        {
+          "id": "w17",
+          "text": "identity.",
+          "start": 8.69,
+          "end": 9.35
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "path": "assets/voice/06.wav",
+      "duration_s": 8.896,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Cockroach",
+          "start": 0.04,
+          "end": 0.71
+        },
+        {
+          "id": "w1",
+          "text": "DB",
+          "start": 0.71,
+          "end": 0.87
+        },
+        {
+          "id": "w2",
+          "text": "managed",
+          "start": 0.87,
+          "end": 1.41
+        },
+        {
+          "id": "w3",
+          "text": "MCP",
+          "start": 1.46,
+          "end": 1.65
+        },
+        {
+          "id": "w4",
+          "text": "provides",
+          "start": 1.65,
+          "end": 2.26
+        },
+        {
+          "id": "w5",
+          "text": "a",
+          "start": 2.33,
+          "end": 2.36
+        },
+        {
+          "id": "w6",
+          "text": "second,",
+          "start": 2.36,
+          "end": 2.99
+        },
+        {
+          "id": "w7",
+          "text": "independently",
+          "start": 2.99,
+          "end": 4.02
+        },
+        {
+          "id": "w8",
+          "text": "auditable",
+          "start": 4.02,
+          "end": 4.73
+        },
+        {
+          "id": "w9",
+          "text": "view",
+          "start": 4.73,
+          "end": 5.12
+        },
+        {
+          "id": "w10",
+          "text": "of",
+          "start": 5.12,
+          "end": 5.25
+        },
+        {
+          "id": "w11",
+          "text": "the",
+          "start": 5.25,
+          "end": 5.44
+        },
+        {
+          "id": "w12",
+          "text": "same",
+          "start": 5.44,
+          "end": 5.72
+        },
+        {
+          "id": "w13",
+          "text": "persistent",
+          "start": 5.72,
+          "end": 6.33
+        },
+        {
+          "id": "w14",
+          "text": "state.",
+          "start": 6.4,
+          "end": 7.36
+        },
+        {
+          "id": "w15",
+          "text": "Read",
+          "start": 7.4,
+          "end": 7.6
+        },
+        {
+          "id": "w16",
+          "text": "only",
+          "start": 7.63,
+          "end": 7.88
+        },
+        {
+          "id": "w17",
+          "text": "in",
+          "start": 7.88,
+          "end": 8.01
+        },
+        {
+          "id": "w18",
+          "text": "this",
+          "start": 8.01,
+          "end": 8.27
+        },
+        {
+          "id": "w19",
+          "text": "prototype.",
+          "start": 8.27,
+          "end": 8.88
+        }
+      ]
+    },
+    {
+      "frame": 7,
+      "path": "assets/voice/07.wav",
+      "duration_s": 8.085,
+      "words": [
+        {
+          "id": "w0",
+          "text": "The",
+          "start": 0.05,
+          "end": 0.22
+        },
+        {
+          "id": "w1",
+          "text": "proposed",
+          "start": 0.3,
+          "end": 0.88
+        },
+        {
+          "id": "w2",
+          "text": "action",
+          "start": 0.88,
+          "end": 1.31
+        },
+        {
+          "id": "w3",
+          "text": "cannot",
+          "start": 1.4,
+          "end": 1.84
+        },
+        {
+          "id": "w4",
+          "text": "run",
+          "start": 1.84,
+          "end": 2.08
+        },
+        {
+          "id": "w5",
+          "text": "by",
+          "start": 2.08,
+          "end": 2.24
+        },
+        {
+          "id": "w6",
+          "text": "itself.",
+          "start": 2.24,
+          "end": 2.98
+        },
+        {
+          "id": "w7",
+          "text": "A",
+          "start": 3.02,
+          "end": 3.05
+        },
+        {
+          "id": "w8",
+          "text": "human",
+          "start": 3.05,
+          "end": 3.41
+        },
+        {
+          "id": "w9",
+          "text": "approves",
+          "start": 3.41,
+          "end": 3.96
+        },
+        {
+          "id": "w10",
+          "text": "one",
+          "start": 4.01,
+          "end": 4.2
+        },
+        {
+          "id": "w11",
+          "text": "allowlisted",
+          "start": 4.2,
+          "end": 4.98
+        },
+        {
+          "id": "w12",
+          "text": "simulator",
+          "start": 4.98,
+          "end": 5.33
+        },
+        {
+          "id": "w13",
+          "text": "restart",
+          "start": 6,
+          "end": 6.2
+        },
+        {
+          "id": "w14",
+          "text": "before",
+          "start": 6.2,
+          "end": 6.48
+        },
+        {
+          "id": "w15",
+          "text": "execution",
+          "start": 6.59,
+          "end": 7
+        },
+        {
+          "id": "w16",
+          "text": "becomes",
+          "start": 7,
+          "end": 7.37
+        },
+        {
+          "id": "w17",
+          "text": "available.",
+          "start": 7.37,
+          "end": 8.04
+        }
+      ]
+    },
+    {
+      "frame": 8,
+      "path": "assets/voice/08.wav",
+      "duration_s": 8.149,
+      "words": [
+        {
+          "id": "w0",
+          "text": "now",
+          "start": 0.05,
+          "end": 0.25
+        },
+        {
+          "id": "w1",
+          "text": "inject",
+          "start": 0.25,
+          "end": 0.67
+        },
+        {
+          "id": "w2",
+          "text": "one",
+          "start": 0.75,
+          "end": 0.92
+        },
+        {
+          "id": "w3",
+          "text": "failure",
+          "start": 1.01,
+          "end": 1.59
+        },
+        {
+          "id": "w4",
+          "text": "during",
+          "start": 1.59,
+          "end": 2.09
+        },
+        {
+          "id": "w5",
+          "text": "execution.",
+          "start": 2.09,
+          "end": 2.92
+        },
+        {
+          "id": "w6",
+          "text": "The",
+          "start": 2.93,
+          "end": 3.13
+        },
+        {
+          "id": "w7",
+          "text": "process",
+          "start": 3.13,
+          "end": 3.63
+        },
+        {
+          "id": "w8",
+          "text": "stops,",
+          "start": 3.63,
+          "end": 4.11
+        },
+        {
+          "id": "w9",
+          "text": "but",
+          "start": 4.13,
+          "end": 4.28
+        },
+        {
+          "id": "w10",
+          "text": "the",
+          "start": 4.28,
+          "end": 4.45
+        },
+        {
+          "id": "w11",
+          "text": "run",
+          "start": 4.45,
+          "end": 4.6
+        },
+        {
+          "id": "w12",
+          "text": "state,",
+          "start": 4.64,
+          "end": 4.97
+        },
+        {
+          "id": "w13",
+          "text": "approval",
+          "start": 5.11,
+          "end": 5.55
+        },
+        {
+          "id": "w14",
+          "text": "evidence",
+          "start": 5.65,
+          "end": 6.13
+        },
+        {
+          "id": "w15",
+          "text": "and",
+          "start": 6.13,
+          "end": 6.27
+        },
+        {
+          "id": "w16",
+          "text": "idempotency",
+          "start": 6.34,
+          "end": 7.03
+        },
+        {
+          "id": "w17",
+          "text": "key",
+          "start": 7.03,
+          "end": 7.22
+        },
+        {
+          "id": "w18",
+          "text": "remain",
+          "start": 7.22,
+          "end": 7.6
+        },
+        {
+          "id": "w19",
+          "text": "durable.",
+          "start": 7.6,
+          "end": 8.12
+        }
+      ]
+    },
+    {
+      "frame": 9,
+      "path": "assets/voice/09.wav",
+      "duration_s": 8.469,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Resume",
+          "start": 0.04,
+          "end": 0.56
+        },
+        {
+          "id": "w1",
+          "text": "the",
+          "start": 0.56,
+          "end": 0.84
+        },
+        {
+          "id": "w2",
+          "text": "same",
+          "start": 0.84,
+          "end": 1.04
+        },
+        {
+          "id": "w3",
+          "text": "run.",
+          "start": 1.52,
+          "end": 1.67
+        },
+        {
+          "id": "w4",
+          "text": "Recall",
+          "start": 1.72,
+          "end": 2.04
+        },
+        {
+          "id": "w5",
+          "text": "ops",
+          "start": 2.12,
+          "end": 2.29
+        },
+        {
+          "id": "w6",
+          "text": "reuses",
+          "start": 2.29,
+          "end": 2.64
+        },
+        {
+          "id": "w7",
+          "text": "the",
+          "start": 2.73,
+          "end": 2.91
+        },
+        {
+          "id": "w8",
+          "text": "same",
+          "start": 2.91,
+          "end": 3.19
+        },
+        {
+          "id": "w9",
+          "text": "idempotency",
+          "start": 3.19,
+          "end": 3.96
+        },
+        {
+          "id": "w10",
+          "text": "key",
+          "start": 3.96,
+          "end": 4.14
+        },
+        {
+          "id": "w11",
+          "text": "and",
+          "start": 4.24,
+          "end": 4.34
+        },
+        {
+          "id": "w12",
+          "text": "produces",
+          "start": 4.39,
+          "end": 4.8
+        },
+        {
+          "id": "w13",
+          "text": "one",
+          "start": 4.8,
+          "end": 5.07
+        },
+        {
+          "id": "w14",
+          "text": "receipt.",
+          "start": 5.07,
+          "end": 6
+        },
+        {
+          "id": "w15",
+          "text": "Retry",
+          "start": 6.04,
+          "end": 6.35
+        },
+        {
+          "id": "w16",
+          "text": "again,",
+          "start": 6.35,
+          "end": 6.84
+        },
+        {
+          "id": "w17",
+          "text": "execution",
+          "start": 6.84,
+          "end": 7.04
+        },
+        {
+          "id": "w18",
+          "text": "count",
+          "start": 7.57,
+          "end": 7.83
+        },
+        {
+          "id": "w19",
+          "text": "stays",
+          "start": 7.83,
+          "end": 8.18
+        },
+        {
+          "id": "w20",
+          "text": "one.",
+          "start": 8.18,
+          "end": 8.44
+        }
+      ]
+    },
+    {
+      "frame": 10,
+      "path": "assets/voice/10.wav",
+      "duration_s": 11.947,
+      "words": [
+        {
+          "id": "w0",
+          "text": "The",
+          "start": 0.05,
+          "end": 0.2
+        },
+        {
+          "id": "w1",
+          "text": "architecture",
+          "start": 0.2,
+          "end": 1.02
+        },
+        {
+          "id": "w2",
+          "text": "is",
+          "start": 1.02,
+          "end": 1.15
+        },
+        {
+          "id": "w3",
+          "text": "deliberately",
+          "start": 1.15,
+          "end": 1.9
+        },
+        {
+          "id": "w4",
+          "text": "narrow.",
+          "start": 2.4,
+          "end": 2.54
+        },
+        {
+          "id": "w5",
+          "text": "Cockroach",
+          "start": 2.62,
+          "end": 3.15
+        },
+        {
+          "id": "w6",
+          "text": "DB",
+          "start": 3.21,
+          "end": 3.31
+        },
+        {
+          "id": "w7",
+          "text": "persists",
+          "start": 3.31,
+          "end": 3.83
+        },
+        {
+          "id": "w8",
+          "text": "incident",
+          "start": 3.9,
+          "end": 4.29
+        },
+        {
+          "id": "w9",
+          "text": "memory",
+          "start": 4.34,
+          "end": 4.68
+        },
+        {
+          "id": "w10",
+          "text": "and",
+          "start": 4.68,
+          "end": 4.86
+        },
+        {
+          "id": "w11",
+          "text": "action",
+          "start": 4.93,
+          "end": 5.39
+        },
+        {
+          "id": "w12",
+          "text": "receipts.",
+          "start": 5.39,
+          "end": 6.12
+        },
+        {
+          "id": "w13",
+          "text": "AWS",
+          "start": 6.12,
+          "end": 6.39
+        },
+        {
+          "id": "w14",
+          "text": "Lambda",
+          "start": 6.39,
+          "end": 6.8
+        },
+        {
+          "id": "w15",
+          "text": "runs",
+          "start": 7.3,
+          "end": 7.31
+        },
+        {
+          "id": "w16",
+          "text": "the",
+          "start": 7.31,
+          "end": 7.58
+        },
+        {
+          "id": "w17",
+          "text": "package",
+          "start": 7.58,
+          "end": 8.23
+        },
+        {
+          "id": "w18",
+          "text": "demo",
+          "start": 8.23,
+          "end": 8.6
+        },
+        {
+          "id": "w19",
+          "text": "entry",
+          "start": 8.6,
+          "end": 9.06
+        },
+        {
+          "id": "w20",
+          "text": "point.",
+          "start": 9.06,
+          "end": 9.58
+        },
+        {
+          "id": "w21",
+          "text": "Recall",
+          "start": 9.63,
+          "end": 9.93
+        },
+        {
+          "id": "w22",
+          "text": "Ops",
+          "start": 9.98,
+          "end": 10.11
+        },
+        {
+          "id": "w23",
+          "text": "owns",
+          "start": 10.21,
+          "end": 10.4
+        },
+        {
+          "id": "w24",
+          "text": "the",
+          "start": 10.41,
+          "end": 10.6
+        },
+        {
+          "id": "w25",
+          "text": "recovery",
+          "start": 10.6,
+          "end": 11.11
+        },
+        {
+          "id": "w26",
+          "text": "state",
+          "start": 11.11,
+          "end": 11.43
+        },
+        {
+          "id": "w27",
+          "text": "machine.",
+          "start": 11.43,
+          "end": 11.92
+        }
+      ]
+    },
+    {
+      "frame": 11,
+      "path": "assets/voice/11.wav",
+      "duration_s": 10.432,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Provider",
+          "start": 0.06,
+          "end": 0.6
+        },
+        {
+          "id": "w1",
+          "text": "verification",
+          "start": 0.6,
+          "end": 1.25
+        },
+        {
+          "id": "w2",
+          "text": "proves",
+          "start": 1.52,
+          "end": 1.93
+        },
+        {
+          "id": "w3",
+          "text": "the",
+          "start": 1.93,
+          "end": 2.13
+        },
+        {
+          "id": "w4",
+          "text": "real",
+          "start": 2.13,
+          "end": 2.3
+        },
+        {
+          "id": "w5",
+          "text": "Cockroach",
+          "start": 2.39,
+          "end": 3.01
+        },
+        {
+          "id": "w6",
+          "text": "DB",
+          "start": 3.01,
+          "end": 3.13
+        },
+        {
+          "id": "w7",
+          "text": "path",
+          "start": 3.13,
+          "end": 3.37
+        },
+        {
+          "id": "w8",
+          "text": "separately.",
+          "start": 3.45,
+          "end": 4.8
+        },
+        {
+          "id": "w9",
+          "text": "The",
+          "start": 4.86,
+          "end": 5
+        },
+        {
+          "id": "w10",
+          "text": "deployed",
+          "start": 5,
+          "end": 5.53
+        },
+        {
+          "id": "w11",
+          "text": "Lambda",
+          "start": 5.53,
+          "end": 5.92
+        },
+        {
+          "id": "w12",
+          "text": "image",
+          "start": 5.92,
+          "end": 6.07
+        },
+        {
+          "id": "w13",
+          "text": "carries",
+          "start": 6.32,
+          "end": 6.71
+        },
+        {
+          "id": "w14",
+          "text": "no",
+          "start": 6.71,
+          "end": 6.84
+        },
+        {
+          "id": "w15",
+          "text": "database",
+          "start": 6.84,
+          "end": 7.35
+        },
+        {
+          "id": "w16",
+          "text": "secrets",
+          "start": 7.41,
+          "end": 7.88
+        },
+        {
+          "id": "w17",
+          "text": "and",
+          "start": 7.88,
+          "end": 8.07
+        },
+        {
+          "id": "w18",
+          "text": "exposes",
+          "start": 8.07,
+          "end": 8.47
+        },
+        {
+          "id": "w19",
+          "text": "no",
+          "start": 8.54,
+          "end": 8.61
+        },
+        {
+          "id": "w20",
+          "text": "anonymous",
+          "start": 8.65,
+          "end": 8.82
+        },
+        {
+          "id": "w21",
+          "text": "function",
+          "start": 9.54,
+          "end": 9.7
+        },
+        {
+          "id": "w22",
+          "text": "URL.",
+          "start": 9.82,
+          "end": 10.44
+        }
+      ]
+    },
+    {
+      "frame": 12,
+      "path": "assets/voice/12.wav",
+      "duration_s": 9.28,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Recall",
+          "start": 0.03,
+          "end": 0.57
+        },
+        {
+          "id": "w1",
+          "text": "ops,",
+          "start": 0.67,
+          "end": 1.18
+        },
+        {
+          "id": "w2",
+          "text": "durable",
+          "start": 1.24,
+          "end": 1.62
+        },
+        {
+          "id": "w3",
+          "text": "incident",
+          "start": 1.62,
+          "end": 2.12
+        },
+        {
+          "id": "w4",
+          "text": "memory,",
+          "start": 2.12,
+          "end": 2.55
+        },
+        {
+          "id": "w5",
+          "text": "human",
+          "start": 2.75,
+          "end": 2.96
+        },
+        {
+          "id": "w6",
+          "text": "approval",
+          "start": 2.96,
+          "end": 3.47
+        },
+        {
+          "id": "w7",
+          "text": "and",
+          "start": 3.48,
+          "end": 3.67
+        },
+        {
+          "id": "w8",
+          "text": "exactly",
+          "start": 3.73,
+          "end": 4.31
+        },
+        {
+          "id": "w9",
+          "text": "once",
+          "start": 4.36,
+          "end": 4.69
+        },
+        {
+          "id": "w10",
+          "text": "recovery,",
+          "start": 4.69,
+          "end": 5.49
+        },
+        {
+          "id": "w11",
+          "text": "demonstrated",
+          "start": 5.49,
+          "end": 6.03
+        },
+        {
+          "id": "w12",
+          "text": "safely",
+          "start": 6.07,
+          "end": 6.48
+        },
+        {
+          "id": "w13",
+          "text": "with",
+          "start": 6.49,
+          "end": 6.78
+        },
+        {
+          "id": "w14",
+          "text": "synthetic",
+          "start": 6.79,
+          "end": 7.47
+        },
+        {
+          "id": "w15",
+          "text": "data",
+          "start": 7.47,
+          "end": 7.77
+        },
+        {
+          "id": "w16",
+          "text": "and",
+          "start": 7.77,
+          "end": 7.99
+        },
+        {
+          "id": "w17",
+          "text": "a",
+          "start": 7.99,
+          "end": 8.06
+        },
+        {
+          "id": "w18",
+          "text": "simulator",
+          "start": 8.06,
+          "end": 8.57
+        },
+        {
+          "id": "w19",
+          "text": "action.",
+          "start": 8.79,
+          "end": 9.24
+        }
+      ]
+    }
+  ],
+  "sfx": []
+}

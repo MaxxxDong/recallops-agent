@@ -7,3 +7,5 @@ output/
 .playwright-cli/
 build/
 *.egg-info/
+videos/**/.thumbnails/
+videos/**/.waveform-cache/

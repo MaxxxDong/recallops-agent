@@ -1,0 +1,596 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #eef2ff;
+      container-type: size;
+      pointer-events: none;
+    }
+
+    [class~="01-survive-failure-bg"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0b1020;
+    }
+
+    [class~="01-survive-failure-guide"] {
+      position: absolute;
+      background: rgba(238, 242, 255, 0.055);
+    }
+
+    [class~="01-survive-failure-guide-v"] {
+      top: 0;
+      bottom: 0;
+      width: 1px;
+    }
+
+    [class~="01-survive-failure-guide-h"] {
+      left: 0;
+      right: 0;
+      height: 1px;
+    }
+
+    [class~="01-survive-failure-guide-v1"] { left: 320px; }
+    [class~="01-survive-failure-guide-v2"] { left: 960px; }
+    [class~="01-survive-failure-guide-v3"] { left: 1600px; }
+    [class~="01-survive-failure-guide-h1"] { top: 216px; }
+    [class~="01-survive-failure-guide-h2"] { top: 606px; }
+
+    [class~="01-survive-failure-scan"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 896px;
+      background: rgba(238, 242, 255, 0.09);
+    }
+
+    [class~="01-survive-failure-content"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    [class~="01-survive-failure-kicker"] {
+      position: absolute;
+      top: 55px;
+      left: 80px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: monospace;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(238, 242, 255, 0.72);
+      white-space: nowrap;
+    }
+
+    [class~="01-survive-failure-spike"] {
+      color: #ff7a5c;
+      font-family: sans-serif;
+      font-size: 32px;
+      letter-spacing: 0;
+    }
+
+    [class~="01-survive-failure-pin"] {
+      position: absolute;
+      top: 92px;
+      left: 680px;
+      width: 560px;
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      box-sizing: border-box;
+      border: 1px solid rgba(238, 242, 255, 0.2);
+      border-radius: 8px;
+      background: #151d35;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+      font-family: monospace;
+      color: #eef2ff;
+    }
+
+    [class~="01-survive-failure-pin-label"] {
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0.14em;
+      color: rgba(238, 242, 255, 0.56);
+    }
+
+    [class~="01-survive-failure-pin-value"] {
+      min-width: 230px;
+      padding: 12px 18px;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 6px;
+      background: #1d2846;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    [class~="01-survive-failure-id-link"] {
+      position: absolute;
+      top: 178px;
+      left: 959px;
+      width: 1px;
+      height: 402px;
+      background: rgba(238, 242, 255, 0.14);
+    }
+
+    [class~="01-survive-failure-state-window"] {
+      position: absolute;
+      top: 226px;
+      left: 310px;
+      width: 1300px;
+      height: 214px;
+      overflow: hidden;
+    }
+
+    [class~="01-survive-failure-state"] {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 140px;
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      color: #eef2ff;
+      white-space: nowrap;
+      will-change: transform, opacity, filter;
+    }
+
+    [class~="01-survive-failure-state-rule"] {
+      position: absolute;
+      left: 517px;
+      bottom: 16px;
+      width: 266px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.2);
+    }
+
+    [class~="01-survive-failure-timeline"] {
+      position: absolute;
+      top: 506px;
+      left: 220px;
+      width: 1480px;
+      height: 162px;
+    }
+
+    [class~="01-survive-failure-rail"] {
+      position: absolute;
+      top: 51px;
+      height: 2px;
+      transform-origin: left center;
+    }
+
+    [class~="01-survive-failure-rail-left"] {
+      left: 11px;
+      width: 549px;
+      background: #253355;
+    }
+
+    [class~="01-survive-failure-rail-right"] {
+      left: 920px;
+      width: 549px;
+      background: rgba(238, 242, 255, 0.2);
+    }
+
+    [class~="01-survive-failure-center-shell"] {
+      position: absolute;
+      top: 20px;
+      left: 560px;
+      width: 360px;
+      height: 64px;
+    }
+
+    [class~="01-survive-failure-center-base"] {
+      position: absolute;
+      top: 31px;
+      left: 0;
+      width: 360px;
+      height: 2px;
+      background: rgba(238, 242, 255, 0.2);
+      transform-origin: center center;
+    }
+
+    [class~="01-survive-failure-glitch-stack"] {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+    }
+
+    [class~="01-survive-failure-glitch-slice"] {
+      position: absolute;
+      inset: 0;
+      will-change: transform, opacity;
+    }
+
+    [class~="01-survive-failure-glitch-slice"]::before {
+      content: "";
+      position: absolute;
+      top: 31px;
+      left: 0;
+      width: 360px;
+      height: 2px;
+      background: #eef2ff;
+    }
+
+    [class~="01-survive-failure-glitch-slice"]::after {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 169px;
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(238, 242, 255, 0.5);
+      border-radius: 6px;
+      background: #0b1020;
+    }
+
+    [class~="01-survive-failure-broken-piece"] {
+      position: absolute;
+      width: 180px;
+      height: 2px;
+      background: #eef2ff;
+      will-change: transform, opacity;
+    }
+
+    [class~="01-survive-failure-broken-left"] {
+      top: 25px;
+      left: 0;
+      clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+    }
+
+    [class~="01-survive-failure-broken-right"] {
+      top: 37px;
+      left: 180px;
+      clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    [class~="01-survive-failure-node"] {
+      position: absolute;
+      top: 41px;
+      width: 22px;
+      height: 22px;
+      box-sizing: border-box;
+      border: 1px solid rgba(238, 242, 255, 0.3);
+      border-radius: 6px;
+      background: #0b1020;
+      will-change: transform, opacity;
+    }
+
+    [class~="01-survive-failure-node-left"] {
+      left: 0;
+      border-color: #253355;
+      background: #253355;
+    }
+
+    [class~="01-survive-failure-node-middle"] { left: 729px; }
+    [class~="01-survive-failure-node-right"] { left: 1458px; }
+
+    [class~="01-survive-failure-step-label"] {
+      position: absolute;
+      top: 92px;
+      width: 250px;
+      font-family: monospace;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      color: rgba(238, 242, 255, 0.5);
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    [class~="01-survive-failure-step-left"] { left: -114px; }
+    [class~="01-survive-failure-step-middle"] { left: 615px; }
+    [class~="01-survive-failure-step-right"] { left: 1344px; }
+
+    [class~="01-survive-failure-phrase-row"] {
+      position: absolute;
+      top: 711px;
+      left: 160px;
+      width: 1600px;
+      min-height: 128px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      box-sizing: border-box;
+      border-top: 1px solid rgba(238, 242, 255, 0.12);
+      border-bottom: 1px solid rgba(238, 242, 255, 0.12);
+    }
+
+    [class~="01-survive-failure-phrase"] {
+      display: inline-block;
+      font-family: sans-serif;
+      font-size: 74px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.018em;
+      color: #eef2ff;
+      white-space: nowrap;
+      will-change: transform, opacity, filter;
+    }
+
+    [class~="01-survive-failure-phrase-bridge"] {
+      padding: 12px 18px 14px;
+      border: 1px solid rgba(238, 242, 255, 0.2);
+      border-radius: 8px;
+      background: #181818;
+    }
+  </style>
+
+  <section data-hf-id="hf-m054" id="root" data-composition-id="01-survive-failure" data-width="1920" data-height="1080" data-duration="6.8" aria-label="A recovery timeline fails and reconnects to the same incident identity">
+    <div data-hf-id="hf-3qgt" class="clip 01-survive-failure-bg" data-start="0" data-duration="6.8" data-track-index="0">
+      <div data-hf-id="hf-xyb9" class="01-survive-failure-guide 01-survive-failure-guide-v 01-survive-failure-guide-v1"></div>
+      <div data-hf-id="hf-1wfa" class="01-survive-failure-guide 01-survive-failure-guide-v 01-survive-failure-guide-v2"></div>
+      <div data-hf-id="hf-5ujb" class="01-survive-failure-guide 01-survive-failure-guide-v 01-survive-failure-guide-v3"></div>
+      <div data-hf-id="hf-gzvd" class="01-survive-failure-guide 01-survive-failure-guide-h 01-survive-failure-guide-h1"></div>
+      <div data-hf-id="hf-kxze" class="01-survive-failure-guide 01-survive-failure-guide-h 01-survive-failure-guide-h2"></div>
+      <div data-hf-id="hf-oiy4" id="01-survive-failure-scan" class="01-survive-failure-scan"></div>
+    </div>
+
+    <div data-hf-id="hf-fu92" class="clip 01-survive-failure-content" data-start="0" data-duration="6.8" data-track-index="1">
+      <div data-hf-id="hf-t71o" id="01-survive-failure-kicker" class="01-survive-failure-kicker">
+        <span data-hf-id="hf-s1ah" class="01-survive-failure-spike" aria-hidden="true">✱</span>
+        <span data-hf-id="hf-z882">Incident trace</span>
+      </div>
+
+      <div data-hf-id="hf-antm" id="01-survive-failure-pin" class="01-survive-failure-pin">
+        <span data-hf-id="hf-2wz6" class="01-survive-failure-pin-label">Incident ID</span>
+        <span data-hf-id="hf-uurm" class="01-survive-failure-pin-value">{incident_id}</span>
+      </div>
+      <div data-hf-id="hf-kg5m" id="01-survive-failure-id-link" class="01-survive-failure-id-link"></div>
+
+      <div data-hf-id="hf-uxia" class="01-survive-failure-state-window">
+        <div data-hf-id="hf-jpuh" id="01-survive-failure-recovery" class="01-survive-failure-state">RECOVERY</div>
+        <div data-hf-id="hf-s74t" id="01-survive-failure-failed" class="01-survive-failure-state">FAILED</div>
+        <div data-hf-id="hf-trl6" id="01-survive-failure-state-rule" class="01-survive-failure-state-rule"></div>
+      </div>
+
+      <div data-hf-id="hf-dqh3" class="01-survive-failure-timeline">
+        <div data-hf-id="hf-qfxs" id="01-survive-failure-rail-left" class="01-survive-failure-rail 01-survive-failure-rail-left"></div>
+        <div data-hf-id="hf-7972" id="01-survive-failure-rail-right" class="01-survive-failure-rail 01-survive-failure-rail-right"></div>
+
+        <div data-hf-id="hf-e0u4" class="01-survive-failure-center-shell">
+          <div data-hf-id="hf-18my" id="01-survive-failure-center-base" class="01-survive-failure-center-base"></div>
+          <div data-hf-id="hf-dfcb" id="01-survive-failure-glitch-stack" class="01-survive-failure-glitch-stack" aria-hidden="true">
+            <div data-hf-id="hf-3yv4" class="01-survive-failure-glitch-slice"></div>
+            <div data-hf-id="hf-6s6w" class="01-survive-failure-glitch-slice"></div>
+            <div data-hf-id="hf-5l9t" class="01-survive-failure-glitch-slice"></div>
+            <div data-hf-id="hf-5zku" class="01-survive-failure-glitch-slice"></div>
+            <div data-hf-id="hf-4snr" class="01-survive-failure-glitch-slice"></div>
+            <div data-hf-id="hf-56ys" class="01-survive-failure-glitch-slice"></div>
+          </div>
+          <div data-hf-id="hf-iemm" id="01-survive-failure-broken-left" class="01-survive-failure-broken-piece 01-survive-failure-broken-left"></div>
+          <div data-hf-id="hf-bnxa" id="01-survive-failure-broken-right" class="01-survive-failure-broken-piece 01-survive-failure-broken-right"></div>
+        </div>
+
+        <div data-hf-id="hf-igtw" id="01-survive-failure-node-left" class="01-survive-failure-node 01-survive-failure-node-left"></div>
+        <div data-hf-id="hf-jqjc" id="01-survive-failure-node-middle" class="01-survive-failure-node 01-survive-failure-node-middle"></div>
+        <div data-hf-id="hf-x8hy" id="01-survive-failure-node-right" class="01-survive-failure-node 01-survive-failure-node-right"></div>
+        <div data-hf-id="hf-pxow" id="01-survive-failure-label-left" class="01-survive-failure-step-label 01-survive-failure-step-left">Attempt</div>
+        <div data-hf-id="hf-yv4d" id="01-survive-failure-label-middle" class="01-survive-failure-step-label 01-survive-failure-step-middle">Checkpoint</div>
+        <div data-hf-id="hf-izhg" id="01-survive-failure-label-right" class="01-survive-failure-step-label 01-survive-failure-step-right">Resume</div>
+      </div>
+
+      <div data-hf-id="hf-qrsx" id="01-survive-failure-phrase-row" class="01-survive-failure-phrase-row" aria-label="Remember where it stopped">
+        <span data-hf-id="hf-z4wo" id="01-survive-failure-phrase-remember" class="01-survive-failure-phrase">REMEMBER</span>
+        <span data-hf-id="hf-ieaj" id="01-survive-failure-phrase-where" class="01-survive-failure-phrase">WHERE IT</span>
+        <span data-hf-id="hf-9axn" id="01-survive-failure-phrase-stopped" class="01-survive-failure-phrase 01-survive-failure-phrase-bridge">STOPPED</span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["01-survive-failure"] = tl;
+
+      const byId = (id) => document.getElementById(`01-survive-failure-${id}`);
+      const recovery = byId("recovery");
+      const failed = byId("failed");
+      const pin = byId("pin");
+      const idLink = byId("id-link");
+      const centerBase = byId("center-base");
+      const brokenLeft = byId("broken-left");
+      const brokenRight = byId("broken-right");
+      const phraseRow = byId("phrase-row");
+      const glitchSlices = gsap.utils.toArray('[class~="01-survive-failure-glitch-slice"]');
+      const nodes = [byId("node-left"), byId("node-middle"), byId("node-right")];
+      const labels = [byId("label-left"), byId("label-middle"), byId("label-right")];
+      const rails = [byId("rail-left"), byId("rail-right")];
+
+      const glitchHash = (n) => {
+        const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+        return x - Math.floor(x);
+      };
+
+      tl.set(failed, { opacity: 0 }, 0);
+      tl.set([brokenLeft, brokenRight], { opacity: 0 }, 0);
+      tl.set(glitchSlices, { opacity: 0, x: 0, y: 0, scaleX: 1 }, 0);
+      tl.set(labels, { opacity: 0 }, 0);
+      tl.set(phraseRow, { opacity: 0 }, 0);
+
+      const phraseContent = [
+        { id: "phrase-remember", body: "REMEMBER", hold: 0.18 },
+        { id: "phrase-where", body: "WHERE IT", hold: 0.2 },
+        { id: "phrase-stopped", body: "STOPPED", hold: 0.52 },
+      ];
+      const phraseBaseDuration = 0.24;
+      const phraseSecondsPerCharacter = 0.018;
+      let phraseCumulative = 0;
+      const phraseTimeline = phraseContent.map((entry) => {
+        const duration = phraseBaseDuration + entry.body.length * phraseSecondsPerCharacter + entry.hold;
+        const start = phraseCumulative;
+        phraseCumulative += duration;
+        return { ...entry, start, end: phraseCumulative };
+      });
+      const phraseWindow = 1.34;
+      const phraseScale = phraseWindow / phraseCumulative;
+      const phraseElements = phraseTimeline.map((entry) => byId(entry.id));
+      tl.set(phraseElements, { opacity: 0 }, 0);
+
+      tl.fromTo(
+        byId("kicker"),
+        { opacity: 0, y: -12 },
+        { opacity: 1, y: 0, duration: 0.34, ease: "power3.out" },
+        0.02,
+      );
+      tl.fromTo(
+        pin,
+        { opacity: 0, y: -18 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" },
+        0.08,
+      );
+      tl.fromTo(
+        idLink,
+        { opacity: 0, scaleY: 0, transformOrigin: "top center" },
+        { opacity: 1, scaleY: 1, duration: 0.66, ease: "power2.out" },
+        0.24,
+      );
+      tl.fromTo(
+        recovery,
+        { opacity: 0, scale: 0.94, filter: "blur(10px)" },
+        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.42, ease: "expo.out" },
+        0.06,
+      );
+      tl.fromTo(
+        byId("state-rule"),
+        { opacity: 0, scaleX: 0, transformOrigin: "center center" },
+        { opacity: 1, scaleX: 1, duration: 0.52, ease: "power3.out" },
+        0.4,
+      );
+
+      rails.forEach((rail, index) => {
+        tl.fromTo(
+          rail,
+          { opacity: 0, scaleX: 0 },
+          { opacity: 1, scaleX: 1, duration: 0.5, ease: "power2.out" },
+          0.42 + index * 0.26,
+        );
+      });
+      tl.fromTo(
+        centerBase,
+        { opacity: 0, scaleX: 0 },
+        { opacity: 1, scaleX: 1, duration: 0.52, ease: "power2.out" },
+        0.68,
+      );
+      nodes.forEach((node, index) => {
+        tl.fromTo(
+          node,
+          { opacity: 0, scale: 0.72 },
+          { opacity: 1, scale: 1, duration: 0.34, ease: "power3.out" },
+          0.44 + index * 0.32,
+        );
+        tl.fromTo(
+          labels[index],
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+          0.64 + index * 0.32,
+        );
+      });
+
+      tl.fromTo(
+        byId("scan"),
+        { x: -420 },
+        { x: 2340, duration: 6.4, ease: "none" },
+        0,
+      );
+
+      tl.set(recovery, { opacity: 0 }, 1.7);
+      tl.set(failed, { opacity: 1, scale: 1, filter: "blur(0px)" }, 1.7);
+      tl.set(centerBase, { opacity: 0 }, 1.7);
+      tl.set([brokenLeft, brokenRight], { opacity: 1 }, 1.7);
+
+      glitchSlices.forEach((slice, index) => {
+        const bandHeight = 100 / glitchSlices.length;
+        const top = index * bandHeight;
+        const bottom = 100 - (index + 1) * bandHeight;
+        const direction = glitchHash(index * 3 + 1) > 0.5 ? 1 : -1;
+        const offset = 20 + glitchHash(index * 5 + 2) * 42;
+        const stretch = 1 + glitchHash(index * 7 + 3) * 0.24;
+        const lag = glitchHash(index * 11 + 4) * 0.07;
+
+        gsap.set(slice, { clipPath: `inset(${top}% 0 ${bottom}% 0)` });
+        tl.fromTo(
+          slice,
+          { x: direction * offset, scaleX: stretch, opacity: 1 },
+          { x: 0, scaleX: 1, opacity: 1, duration: 0.32, ease: "steps(5)" },
+          1.7 + lag,
+        );
+      });
+      tl.fromTo(
+        brokenLeft,
+        { x: -30, y: -5 },
+        { x: 0, y: 0, duration: 0.34, ease: "steps(4)" },
+        1.72,
+      );
+      tl.fromTo(
+        brokenRight,
+        { x: 34, y: 6 },
+        { x: 0, y: 0, duration: 0.34, ease: "steps(4)" },
+        1.72,
+      );
+      tl.to(glitchSlices, { opacity: 0, duration: 0.04, ease: "none" }, 2.08);
+      tl.set(glitchSlices, { x: 0, y: 0, scaleX: 1, opacity: 0 }, 2.12);
+
+      tl.to(
+        brokenLeft,
+        { y: 6, duration: 0.28, ease: "power4.in" },
+        4.1,
+      );
+      tl.to(
+        brokenRight,
+        { y: -6, duration: 0.28, ease: "power4.in" },
+        4.1,
+      );
+      tl.fromTo(
+        centerBase,
+        { opacity: 1, scaleX: 0.05 },
+        { opacity: 1, scaleX: 1, duration: 0.38, ease: "power4.out" },
+        4.34,
+      );
+      tl.to(
+        [brokenLeft, brokenRight],
+        { opacity: 0, duration: 0.12, ease: "none" },
+        4.34,
+      );
+      tl.set([brokenLeft, brokenRight], { opacity: 0, x: 0, y: 0 }, 4.46);
+
+      tl.fromTo(
+        phraseRow,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.24, ease: "none" },
+        4.06,
+      );
+
+      phraseTimeline.forEach((entry) => {
+        const phrase = byId(entry.id);
+        const start = 4.18 + entry.start * phraseScale;
+        tl.fromTo(
+          phrase,
+          { opacity: 0, y: 30, filter: "blur(8px)" },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.42, ease: "power4.out" },
+          start,
+        );
+      });
+    })();
+  </script>
+</template>

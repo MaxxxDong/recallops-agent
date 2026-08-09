@@ -1,0 +1,543 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #EEF2FF;
+      font-family: sans-serif;
+    }
+
+    .\31 1-security-boundary-bg,
+    .\31 1-security-boundary-scene {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .\31 1-security-boundary-bg {
+      background: #0B1020;
+    }
+
+    .\31 1-security-boundary-bg::before {
+      content: "";
+      position: absolute;
+      inset: 64px 80px 184px;
+      border: 1px solid rgba(238, 242, 255, 0.08);
+      border-radius: 12px;
+    }
+
+    .\31 1-security-boundary-bloom {
+      position: absolute;
+      top: 260px;
+      width: 480px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(92px);
+      opacity: 0.18;
+      background: #253355;
+    }
+
+    .\31 1-security-boundary-bloom-left {
+      left: 235px;
+    }
+
+    .\31 1-security-boundary-bloom-right {
+      right: 235px;
+      background: #1D2846;
+    }
+
+    .\31 1-security-boundary-grid {
+      position: absolute;
+      inset: 0 0 184px;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(238, 242, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(238, 242, 255, 0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    .\31 1-security-boundary-scene {
+      perspective: 1800px;
+    }
+
+    .\31 1-security-boundary-index {
+      position: absolute;
+      top: 77px;
+      left: 84px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: rgba(238, 242, 255, 0.66);
+      font-family: monospace;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .\31 1-security-boundary-index-line {
+      width: 56px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.28);
+    }
+
+    .\31 1-security-boundary-stage {
+      position: absolute;
+      top: 154px;
+      left: 50%;
+      width: 1660px;
+      height: 586px;
+      margin-left: -830px;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 104px;
+      transform-style: preserve-3d;
+    }
+
+    .\31 1-security-boundary-lane {
+      position: relative;
+      width: 748px;
+      height: 586px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .\31 1-security-boundary-card {
+      position: absolute;
+      inset: 0;
+      box-sizing: border-box;
+      padding: 42px 44px 38px;
+      display: flex;
+      flex-direction: column;
+      background: #181818;
+      border: 1px solid rgba(238, 242, 255, 0.16);
+      border-radius: 12px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .\31 1-security-boundary-card-left {
+      box-shadow: 18px 16px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    .\31 1-security-boundary-card-right {
+      box-shadow: -18px 16px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    .\31 1-security-boundary-card-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(238, 242, 255, 0.12);
+    }
+
+    .\31 1-security-boundary-eyebrow {
+      max-width: 520px;
+      color: rgba(238, 242, 255, 0.72);
+      font-family: monospace;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0.12em;
+    }
+
+    .\31 1-security-boundary-proof-mark {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(238, 242, 255, 0.26);
+      border-radius: 9999px;
+    }
+
+    .\31 1-security-boundary-proof-mark::before,
+    .\31 1-security-boundary-proof-mark::after {
+      content: "";
+      position: absolute;
+      background: rgba(238, 242, 255, 0.62);
+    }
+
+    .\31 1-security-boundary-proof-mark::before {
+      top: 18px;
+      left: 10px;
+      width: 17px;
+      height: 1px;
+    }
+
+    .\31 1-security-boundary-proof-mark::after {
+      top: 10px;
+      left: 18px;
+      width: 1px;
+      height: 17px;
+    }
+
+    .\31 1-security-boundary-headline {
+      margin-top: 42px;
+      max-width: 630px;
+      font-size: 56px;
+      line-height: 1.03;
+      letter-spacing: -0.018em;
+      font-weight: 400;
+    }
+
+    .\31 1-security-boundary-receipts,
+    .\31 1-security-boundary-ledger {
+      margin-top: auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    .\31 1-security-boundary-receipt,
+    .\31 1-security-boundary-ledger-row {
+      min-height: 62px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 0 20px;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 8px;
+      background: #151D35;
+      font-family: monospace;
+      font-size: 21px;
+      letter-spacing: 0.05em;
+    }
+
+    .\31 1-security-boundary-receipt-state,
+    .\31 1-security-boundary-ledger-state {
+      color: rgba(238, 242, 255, 0.62);
+      letter-spacing: 0.12em;
+    }
+
+    .\31 1-security-boundary-spine {
+      position: absolute;
+      top: 188px;
+      left: 50%;
+      width: 44px;
+      height: 482px;
+      margin-left: -22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .\31 1-security-boundary-spine::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: rgba(238, 242, 255, 0.26);
+    }
+
+    .\31 1-security-boundary-spine-label {
+      position: relative;
+      z-index: 1;
+      padding: 16px 8px;
+      border: 1px solid rgba(238, 242, 255, 0.18);
+      border-radius: 9999px;
+      background: #0B1020;
+      color: rgba(238, 242, 255, 0.68);
+      font-family: monospace;
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      writing-mode: vertical-rl;
+    }
+
+    .\31 1-security-boundary-boundary {
+      position: absolute;
+      right: -30px;
+      bottom: 42px;
+      z-index: 4;
+      padding: 18px 24px;
+      border-radius: 9999px;
+      background: #FF7A5C;
+      color: #0B1020;
+      font-family: monospace;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: 0.075em;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+    }
+
+    .\31 1-security-boundary-audit-shell {
+      position: absolute;
+      top: 126px;
+      left: 50%;
+      width: 1724px;
+      height: 716px;
+      margin-left: -862px;
+      box-sizing: border-box;
+      border: 1px solid rgba(238, 242, 255, 0.24);
+      border-radius: 12px;
+      background: rgba(24, 24, 24, 0.76);
+      pointer-events: none;
+    }
+
+    .\31 1-security-boundary-audit-head {
+      position: absolute;
+      top: 22px;
+      left: 32px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(238, 242, 255, 0.14);
+      color: rgba(238, 242, 255, 0.72);
+      font-family: monospace;
+      font-size: 19px;
+      letter-spacing: 0.13em;
+    }
+
+    .\31 1-security-boundary-audit-foot {
+      position: absolute;
+      top: 796px;
+      left: 50%;
+      width: 980px;
+      margin-left: -490px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(238, 242, 255, 0.18);
+      color: rgba(238, 242, 255, 0.66);
+      font-family: monospace;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 0.11em;
+      text-align: center;
+    }
+  </style>
+
+  <div data-hf-id="hf-k49l" id="root" data-composition-id="11-security-boundary" data-duration="10.832" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-0z00" class="clip 11-security-boundary-bg" data-start="0" data-duration="10.832" data-track-index="0">
+      <div data-hf-id="hf-4kol" class="11-security-boundary-grid"></div>
+      <div data-hf-id="hf-evyq" class="11-security-boundary-bloom 11-security-boundary-bloom-left"></div>
+      <div data-hf-id="hf-eblt" class="11-security-boundary-bloom 11-security-boundary-bloom-right"></div>
+    </div>
+
+    <div data-hf-id="hf-fl8c" class="clip 11-security-boundary-scene" data-start="0" data-duration="10.832" data-track-index="1">
+      <div data-hf-id="hf-qfs3" class="11-security-boundary-index">
+        <span data-hf-id="hf-k4od" class="11-security-boundary-index-line"></span>
+        <span data-hf-id="hf-omxd">PROOF BOUNDARY</span>
+      </div>
+
+      <div data-hf-id="hf-r2ij" class="11-security-boundary-audit-shell">
+        <div data-hf-id="hf-ilox" class="11-security-boundary-audit-head">
+          <span data-hf-id="hf-gfbj">AUDIT SHEET</span>
+          <span data-hf-id="hf-aov0">BOUNDED DEPLOYMENT PROFILE</span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-otrh" class="11-security-boundary-stage">
+        <div data-hf-id="hf-mixe" class="11-security-boundary-lane 11-security-boundary-lane-left">
+          <div data-hf-id="hf-1wpq" class="11-security-boundary-card 11-security-boundary-card-left">
+            <div data-hf-id="hf-6qyz" class="11-security-boundary-card-topline">
+              <div data-hf-id="hf-ea4u" class="11-security-boundary-eyebrow">PROVIDER VERIFICATION</div>
+              <div data-hf-id="hf-vg3l" class="11-security-boundary-proof-mark"></div>
+            </div>
+            <div data-hf-id="hf-6s17" class="11-security-boundary-headline 11-security-boundary-left-headline">REAL COCKROACHDB PATHS</div>
+            <div data-hf-id="hf-derq" class="11-security-boundary-receipts">
+              <div data-hf-id="hf-um0v" class="11-security-boundary-receipt">
+                <span data-hf-id="hf-uw3k">PROVIDER CHECK</span>
+                <span data-hf-id="hf-6ree" class="11-security-boundary-receipt-state">VERIFIED</span>
+              </div>
+              <div data-hf-id="hf-qvpb" class="11-security-boundary-receipt">
+                <span data-hf-id="hf-2ada">PATH CHECK</span>
+                <span data-hf-id="hf-opei" class="11-security-boundary-receipt-state">VERIFIED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-jtq9" class="11-security-boundary-lane 11-security-boundary-lane-right">
+          <div data-hf-id="hf-bnyt" class="11-security-boundary-card 11-security-boundary-card-right">
+            <div data-hf-id="hf-klt7" class="11-security-boundary-card-topline">
+              <div data-hf-id="hf-n7cy" class="11-security-boundary-eyebrow">DEPLOYED LAMBDA DEMO</div>
+              <div data-hf-id="hf-w1g5" class="11-security-boundary-proof-mark"></div>
+            </div>
+            <div data-hf-id="hf-jlw4" class="11-security-boundary-headline 11-security-boundary-right-headline">NO DATABASE SECRETS</div>
+            <div data-hf-id="hf-zgja" class="11-security-boundary-ledger">
+              <div data-hf-id="hf-quq9" class="11-security-boundary-ledger-row">
+                <span data-hf-id="hf-907n">DATABASE ENV</span>
+                <span data-hf-id="hf-iy2i" class="11-security-boundary-ledger-state">EMPTY</span>
+              </div>
+              <div data-hf-id="hf-7z45" class="11-security-boundary-ledger-row">
+                <span data-hf-id="hf-ckks">IMAGE CONFIG</span>
+                <span data-hf-id="hf-5ue2" class="11-security-boundary-ledger-state">CLEAN</span>
+              </div>
+            </div>
+          </div>
+          <div data-hf-id="hf-z352" class="11-security-boundary-boundary" data-layout-allow-overlap="">NO ANONYMOUS FUNCTION URL</div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-31pu" class="11-security-boundary-spine">
+        <div data-hf-id="hf-5ibw" class="11-security-boundary-spine-label">SEPARATE PROOF</div>
+      </div>
+
+      <div data-hf-id="hf-kp03" class="11-security-boundary-audit-foot">PROVIDER PROOF ≠ PUBLIC LIVE CONNECTION</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const select = (name) => `[class~="${name}"]`;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        select("11-security-boundary-index"),
+        { opacity: 0, y: -22 },
+        { opacity: 1, y: 0, duration: 0.72, ease: "power3.out" },
+        0
+      );
+      tl.fromTo(
+        select("11-security-boundary-lane-left"),
+        { x: -390, scale: 0.85, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 1.08, ease: "power3.out" },
+        0.06
+      );
+      tl.fromTo(
+        select("11-security-boundary-card-left"),
+        { rotateY: 24 },
+        { rotateY: 14, duration: 1.08, ease: "power3.out" },
+        0.06
+      );
+      tl.fromTo(
+        select("11-security-boundary-lane-right"),
+        { x: 390, scale: 0.85, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 1.08, ease: "power3.out" },
+        0.24
+      );
+      tl.fromTo(
+        select("11-security-boundary-card-right"),
+        { rotateY: -24 },
+        { rotateY: -14, duration: 1.08, ease: "power3.out" },
+        0.24
+      );
+      tl.fromTo(
+        select("11-security-boundary-card-topline"),
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.62, stagger: 0.12, ease: "power2.out" },
+        0.42
+      );
+
+      tl.fromTo(
+        select("11-security-boundary-left-headline"),
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.76, ease: "power3.out" },
+        2.64
+      );
+      tl.fromTo(
+        select("11-security-boundary-right-headline"),
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.76, ease: "power3.out" },
+        3.02
+      );
+      tl.fromTo(
+        select("11-security-boundary-receipt"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.56, stagger: 0.22, ease: "power2.out" },
+        3.52
+      );
+      tl.fromTo(
+        select("11-security-boundary-ledger-row"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.56, stagger: 0.22, ease: "power2.out" },
+        4.14
+      );
+      tl.to(
+        select("11-security-boundary-card-left"),
+        { y: -5, duration: 0.72, ease: "sine.inOut" },
+        4.68
+      );
+      tl.to(
+        select("11-security-boundary-card-right"),
+        { y: 5, duration: 0.72, ease: "sine.inOut" },
+        4.68
+      );
+      tl.to(
+        select("11-security-boundary-card-left"),
+        { y: 0, duration: 0.72, ease: "sine.inOut" },
+        5.4
+      );
+      tl.to(
+        select("11-security-boundary-card-right"),
+        { y: 0, duration: 0.72, ease: "sine.inOut" },
+        5.4
+      );
+
+      tl.fromTo(
+        select("11-security-boundary-spine"),
+        { opacity: 0, scaleY: 0.2 },
+        { opacity: 1, scaleY: 1, duration: 0.86, ease: "power3.out" },
+        5.62
+      );
+      tl.fromTo(
+        select("11-security-boundary-spine-label"),
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.54, ease: "power2.out" },
+        6.06
+      );
+      tl.fromTo(
+        select("11-security-boundary-boundary"),
+        { opacity: 0, scale: 0.72, y: 18 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.76, ease: "back.out(1.35)" },
+        6.48
+      );
+
+      tl.fromTo(
+        select("11-security-boundary-audit-shell"),
+        { opacity: 0, scale: 0.97 },
+        { opacity: 1, scale: 1, duration: 0.9, ease: "power2.out" },
+        8.32
+      );
+      tl.to(
+        select("11-security-boundary-stage"),
+        { y: 48, duration: 1.08, ease: "power3.inOut" },
+        8.34
+      );
+      tl.to(
+        select("11-security-boundary-card-left"),
+        { rotateY: 0, y: 0, duration: 1.08, ease: "power3.inOut" },
+        8.34
+      );
+      tl.to(
+        select("11-security-boundary-card-right"),
+        { rotateY: 0, y: 0, duration: 1.08, ease: "power3.inOut" },
+        8.34
+      );
+      tl.to(
+        select("11-security-boundary-lane-left"),
+        { x: 43, scale: 0.94, duration: 1.08, ease: "power3.inOut" },
+        8.34
+      );
+      tl.to(
+        select("11-security-boundary-lane-right"),
+        { x: -43, scale: 0.94, duration: 1.08, ease: "power3.inOut" },
+        8.34
+      );
+      tl.fromTo(
+        select("11-security-boundary-audit-head"),
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.58, ease: "power2.out" },
+        9.02
+      );
+      tl.fromTo(
+        select("11-security-boundary-audit-foot"),
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.72, ease: "power2.out" },
+        9.42
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["11-security-boundary"] = tl;
+    })();
+  </script>
+</template>

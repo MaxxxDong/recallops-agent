@@ -1,0 +1,400 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #EEF2FF;
+    }
+
+    .clip {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .\31 2-outro-ground {
+      background: #0B1020;
+    }
+
+    .\31 2-outro-ground::before {
+      content: "";
+      position: absolute;
+      inset: 72px 80px 184px;
+      border: 1px solid rgba(238, 242, 255, 0.06);
+      border-radius: 12px;
+    }
+
+    .\31 2-outro-stage {
+      position: absolute;
+      inset: 0 0 184px;
+      perspective: 1400px;
+    }
+
+    .\31 2-outro-axis {
+      position: absolute;
+      background: rgba(238, 242, 255, 0.07);
+    }
+
+    .\31 2-outro-axis-horizontal {
+      left: 80px;
+      top: 466px;
+      width: 1760px;
+      height: 1px;
+    }
+
+    .\31 2-outro-axis-vertical {
+      left: 819px;
+      top: 72px;
+      width: 1px;
+      height: 768px;
+    }
+
+    .\31 2-outro-rail {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      height: 82px;
+      padding: 0 28px;
+      border: 1px solid rgba(238, 242, 255, 0.18);
+      border-radius: 8px;
+      background: #151D35;
+      box-sizing: border-box;
+      color: #EEF2FF;
+      font-family: monospace;
+      font-size: 27px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      will-change: transform, opacity;
+    }
+
+    .\31 2-outro-rail::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 132px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.16);
+    }
+
+    .\31 2-outro-rail-memory {
+      left: 112px;
+      top: 182px;
+      width: 506px;
+    }
+
+    .\31 2-outro-rail-memory::after {
+      left: 100%;
+    }
+
+    .\31 2-outro-rail-approval {
+      left: 720px;
+      top: 86px;
+      width: 500px;
+    }
+
+    .\31 2-outro-rail-approval::after {
+      top: 100%;
+      left: 99px;
+      width: 1px;
+      height: 110px;
+    }
+
+    .\31 2-outro-rail-receipt {
+      right: 112px;
+      top: 582px;
+      width: 434px;
+    }
+
+    .\31 2-outro-rail-receipt::after {
+      right: 100%;
+    }
+
+    .\31 2-outro-rail-index {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(238, 242, 255, 0.22);
+      border-radius: 6px;
+      color: rgba(238, 242, 255, 0.72);
+      font-family: monospace;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .\31 2-outro-glyph-stage {
+      position: absolute;
+      left: 690px;
+      top: 338px;
+      width: 260px;
+      height: 260px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .\31 2-outro-glyph-frag {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+      box-sizing: border-box;
+    }
+
+    .\31 2-outro-glyph-shell {
+      width: 230px;
+      height: 230px;
+      border: 1px solid rgba(238, 242, 255, 0.22);
+      border-radius: 20px;
+    }
+
+    .\31 2-outro-glyph-memory {
+      display: grid;
+      gap: 10px;
+      width: 86px;
+      height: 54px;
+      padding: 6px 0;
+    }
+
+    .\31 2-outro-glyph-memory i,
+    .\31 2-outro-glyph-receipt i {
+      display: block;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.78);
+    }
+
+    .\31 2-outro-glyph-memory i:nth-child(2) {
+      width: 62px;
+    }
+
+    .\31 2-outro-glyph-memory i:nth-child(3) {
+      width: 38px;
+    }
+
+    .\31 2-outro-glyph-approval {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #FF7A5C;
+      color: #0B1020;
+      font-family: sans-serif;
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .\31 2-outro-glyph-receipt {
+      display: grid;
+      gap: 11px;
+      width: 74px;
+      height: 64px;
+      padding: 18px 12px 10px;
+      border-left: 1px solid rgba(238, 242, 255, 0.64);
+      border-bottom: 1px solid rgba(238, 242, 255, 0.64);
+      border-radius: 0 0 0 8px;
+    }
+
+    .\31 2-outro-glyph-receipt i:nth-child(2) {
+      width: 34px;
+    }
+
+    .\31 2-outro-wordmark {
+      position: absolute;
+      left: 990px;
+      top: 405px;
+      display: flex;
+      align-items: baseline;
+      color: #EEF2FF;
+      font-family: sans-serif;
+      font-size: 108px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.045em;
+      white-space: nowrap;
+    }
+
+    .\31 2-outro-wordmark-letter {
+      display: inline-block;
+      will-change: transform, opacity;
+    }
+
+    .\31 2-outro-boundary {
+      position: absolute;
+      left: 690px;
+      top: 646px;
+      width: 920px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(238, 242, 255, 0.18);
+      color: rgba(238, 242, 255, 0.68);
+      font-family: monospace;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      white-space: nowrap;
+      clip-path: inset(0 0 0 0);
+      will-change: clip-path, opacity;
+    }
+  </style>
+
+  <div data-hf-id="hf-tv49" id="root" data-composition-id="12-outro" data-duration="9.28" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-25ee" class="clip 12-outro-ground" data-start="0" data-duration="9.28" data-track-index="0"></div>
+    <div data-hf-id="hf-p0is" class="clip" data-start="0" data-duration="9.28" data-track-index="1">
+      <div data-hf-id="hf-qjou" class="12-outro-stage">
+        <div data-hf-id="hf-ja6p" class="12-outro-axis 12-outro-axis-horizontal"></div>
+        <div data-hf-id="hf-aaf3" class="12-outro-axis 12-outro-axis-vertical"></div>
+
+        <div data-hf-id="hf-0xuw" class="12-outro-rail 12-outro-rail-memory">
+          <span data-hf-id="hf-kuyb" class="12-outro-rail-index">01</span>
+          <span data-hf-id="hf-wtjr">DURABLE MEMORY</span>
+        </div>
+        <div data-hf-id="hf-85no" class="12-outro-rail 12-outro-rail-approval">
+          <span data-hf-id="hf-kgna" class="12-outro-rail-index">02</span>
+          <span data-hf-id="hf-3abl">HUMAN APPROVAL</span>
+        </div>
+        <div data-hf-id="hf-32b7" class="12-outro-rail 12-outro-rail-receipt">
+          <span data-hf-id="hf-k2c9" class="12-outro-rail-index">03</span>
+          <span data-hf-id="hf-e9sv">ONE RECEIPT</span>
+        </div>
+
+        <div data-hf-id="hf-ddjj" class="12-outro-glyph-stage">
+          <div data-hf-id="hf-uasb" class="12-outro-glyph-frag 12-outro-glyph-shell" data-target-x="0" data-target-y="0"></div>
+          <div data-hf-id="hf-9451" class="12-outro-glyph-frag 12-outro-glyph-memory" data-target-x="-48" data-target-y="-34">
+            <i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i>
+          </div>
+          <div data-hf-id="hf-0m99" class="12-outro-glyph-frag 12-outro-glyph-approval" data-target-x="0" data-target-y="0">✓</div>
+          <div data-hf-id="hf-ftzk" class="12-outro-glyph-frag 12-outro-glyph-receipt" data-target-x="46" data-target-y="38">
+            <i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-otuf" class="12-outro-wordmark" aria-label="RecallOps">
+          <span data-hf-id="hf-51kx" class="12-outro-wordmark-letter">R</span>
+          <span data-hf-id="hf-yadg" class="12-outro-wordmark-letter">e</span>
+          <span data-hf-id="hf-z2zi" class="12-outro-wordmark-letter">c</span>
+          <span data-hf-id="hf-zvlk" class="12-outro-wordmark-letter">a</span>
+          <span data-hf-id="hf-12in" class="12-outro-wordmark-letter">l</span>
+          <span data-hf-id="hf-7e9r" class="12-outro-wordmark-letter">l</span>
+          <span data-hf-id="hf-de0i" class="12-outro-wordmark-letter">O</span>
+          <span data-hf-id="hf-t4e3" class="12-outro-wordmark-letter">p</span>
+          <span data-hf-id="hf-sq32" class="12-outro-wordmark-letter">s</span>
+        </div>
+
+        <div data-hf-id="hf-0mmq" class="12-outro-boundary">SYNTHETIC DATA · SIMULATOR ACTION</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.querySelector('[data-composition-id="12-outro"]');
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["12-outro"] = tl;
+
+      const memoryRail = root.getElementsByClassName("12-outro-rail-memory")[0];
+      const approvalRail = root.getElementsByClassName("12-outro-rail-approval")[0];
+      const receiptRail = root.getElementsByClassName("12-outro-rail-receipt")[0];
+      const glyphStage = root.getElementsByClassName("12-outro-glyph-stage")[0];
+      const glyphFrags = Array.from(root.getElementsByClassName("12-outro-glyph-frag"));
+      const approvalNode = root.getElementsByClassName("12-outro-glyph-approval")[0];
+      const letters = Array.from(root.getElementsByClassName("12-outro-wordmark-letter"));
+      const boundary = root.getElementsByClassName("12-outro-boundary")[0];
+
+      tl.fromTo(memoryRail,
+        { x: -420, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+        0.08
+      );
+      tl.fromTo(approvalRail,
+        { y: -190, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.52, ease: "power3.out" },
+        0.82
+      );
+      tl.fromTo(receiptRail,
+        { x: 440, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.52, ease: "power3.out" },
+        1.58
+      );
+
+      tl.to(memoryRail,
+        { x: 668, y: 232, scale: 0.34, opacity: 0, duration: 0.92, ease: "power3.inOut" },
+        2.62
+      );
+      tl.to(approvalRail,
+        { x: 98, y: 328, scale: 0.34, opacity: 0, duration: 0.92, ease: "power3.inOut" },
+        2.68
+      );
+      tl.to(receiptRail,
+        { x: -768, y: -114, scale: 0.34, opacity: 0, duration: 0.92, ease: "power3.inOut" },
+        2.74
+      );
+
+      const GOLDEN = Math.PI * (3 - Math.sqrt(5));
+      const count = glyphFrags.length;
+      glyphFrags.forEach((element, index) => {
+        const angle = index * GOLDEN;
+        const depth = count > 1 ? index / (count - 1) : 0;
+        gsap.set(element, {
+          xPercent: -50,
+          yPercent: -50,
+          x: Math.cos(angle) * 390,
+          y: Math.sin(angle) * 250,
+          z: 280 - depth * 600,
+          rotationX: Math.sin(angle) * 68,
+          rotationY: Math.cos(angle) * 68,
+          opacity: 0
+        });
+
+        tl.to(element, {
+          x: Number(element.dataset.targetX),
+          y: Number(element.dataset.targetY),
+          z: 0,
+          rotationX: 0,
+          rotationY: 0,
+          opacity: 1,
+          duration: 1.18,
+          ease: "power3.out"
+        }, 3.02 + index * 0.07);
+      });
+
+      gsap.set(glyphStage, { rotationY: -24 });
+      tl.to(glyphStage,
+        { rotationY: 0, duration: 1.48, ease: "power1.out" },
+        2.96
+      );
+
+      tl.to(approvalNode,
+        { scale: 1.17, duration: 0.18, ease: "power2.out" },
+        4.48
+      );
+      tl.to(approvalNode,
+        { scale: 1, duration: 0.22, ease: "power2.inOut" },
+        4.66
+      );
+
+      letters.forEach((letter, index) => {
+        tl.fromTo(letter,
+          { x: -34, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.52, ease: "power3.out" },
+          5.42 + index * 0.075
+        );
+      });
+
+      tl.fromTo(boundary,
+        { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 0.84, ease: "power2.out" },
+        6.34
+      );
+
+      tl.to({ hold: 0 }, { hold: 1, duration: 1.68, ease: "none" }, 7.6);
+    })();
+  </script>
+</template>

@@ -1,0 +1,405 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #EEF2FF;
+      font-family: sans-serif;
+    }
+
+    #root [class~="10-architecture-background"] {
+      position: absolute;
+      inset: 0;
+      background: #0B1020;
+      overflow: hidden;
+    }
+
+    #root [class~="10-architecture-grid"] {
+      position: absolute;
+      inset: 0 0 184px;
+      opacity: 0.34;
+    }
+
+    #root [class~="10-architecture-grid"]::before,
+    #root [class~="10-architecture-grid"]::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: 72px 72px;
+    }
+
+    #root [class~="10-architecture-grid"]::before {
+      background-image: linear-gradient(rgba(238, 242, 255, 0.045) 1px, transparent 1px);
+    }
+
+    #root [class~="10-architecture-grid"]::after {
+      background-image: linear-gradient(90deg, rgba(238, 242, 255, 0.045) 1px, transparent 1px);
+    }
+
+    #root [class~="10-architecture-stage"] {
+      position: absolute;
+      inset: 0;
+      transform-origin: 960px 480px;
+    }
+
+    #root [class~="10-architecture-kicker"] {
+      position: absolute;
+      top: 52px;
+      left: 80px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: rgba(238, 242, 255, 0.72);
+      font-family: monospace;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    #root [class~="10-architecture-spike"] {
+      color: #FF7A5C;
+      font-family: sans-serif;
+      font-size: 29px;
+      letter-spacing: 0;
+    }
+
+    #root [class~="10-architecture-index"] {
+      position: absolute;
+      top: 56px;
+      right: 80px;
+      color: rgba(238, 242, 255, 0.48);
+      font-family: monospace;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #root [class~="10-architecture-network"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 896px;
+      overflow: visible;
+    }
+
+    #root [class~="10-architecture-orbit"],
+    #root [class~="10-architecture-connector"] {
+      fill: none;
+      stroke: rgba(238, 242, 255, 0.20);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+      stroke-dasharray: 1400;
+      stroke-linecap: round;
+    }
+
+    #root [class~="10-architecture-connector"] {
+      stroke: rgba(238, 242, 255, 0.28);
+    }
+
+    #root [class~="10-architecture-flow"] {
+      fill: none;
+      stroke: rgba(238, 242, 255, 0.86);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 18 210;
+      marker-end: url(#10-architecture-arrowhead);
+    }
+
+    #root [class~="10-architecture-node"] {
+      position: absolute;
+      box-sizing: border-box;
+      border: 1px solid rgba(238, 242, 255, 0.16);
+      border-radius: 12px;
+      background: #181818;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+      transform-origin: 50% 50%;
+      overflow: hidden;
+    }
+
+    #root [class~="10-architecture-hub"] {
+      left: 712px;
+      top: 396px;
+      width: 496px;
+      height: 184px;
+      border-color: rgba(238, 242, 255, 0.28);
+      background: #151D35;
+    }
+
+    #root [class~="10-architecture-memory"] {
+      left: 96px;
+      top: 350px;
+      width: 510px;
+      height: 286px;
+    }
+
+    #root [class~="10-architecture-lambda"] {
+      left: 1314px;
+      top: 350px;
+      width: 510px;
+      height: 286px;
+    }
+
+    #root [class~="10-architecture-browser"] {
+      left: 720px;
+      top: 106px;
+      width: 480px;
+      height: 174px;
+    }
+
+    #root [class~="10-architecture-node-topline"] {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+      padding: 0 24px;
+      box-sizing: border-box;
+      border-bottom: 1px solid rgba(238, 242, 255, 0.12);
+      background: rgba(238, 242, 255, 0.025);
+      color: rgba(238, 242, 255, 0.50);
+      font-family: monospace;
+      font-size: 19px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    #root [class~="10-architecture-status-dot"] {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: rgba(238, 242, 255, 0.48);
+    }
+
+    #root [class~="10-architecture-node-body"] {
+      padding: 24px;
+    }
+
+    #root [class~="10-architecture-node-title"] {
+      margin: 0;
+      color: #EEF2FF;
+      font-size: 37px;
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.018em;
+    }
+
+    #root [class~="10-architecture-hub-title"] {
+      font-size: 44px;
+    }
+
+    #root [class~="10-architecture-node-subtitle"] {
+      margin-top: 10px;
+      color: rgba(238, 242, 255, 0.58);
+      font-family: monospace;
+      font-size: 19px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    #root [class~="10-architecture-capabilities"] {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    #root [class~="10-architecture-capability"] {
+      position: relative;
+      min-height: 30px;
+      padding-left: 19px;
+      color: rgba(238, 242, 255, 0.78);
+      font-family: monospace;
+      font-size: 18px;
+      line-height: 30px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    #root [class~="10-architecture-capability"]::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 8px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.44);
+    }
+
+    #root [class~="10-architecture-responsibility"] {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      padding: 7px 12px;
+      border: 1px solid rgba(238, 242, 255, 0.18);
+      border-radius: 9999px;
+      color: rgba(238, 242, 255, 0.68);
+      font-family: monospace;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #root [class~="10-architecture-hub"] [class~="10-architecture-responsibility"] {
+      bottom: 16px;
+    }
+
+    #root [class~="10-architecture-browser"] [class~="10-architecture-node-body"] {
+      padding-top: 20px;
+    }
+
+    #root [class~="10-architecture-browser"] [class~="10-architecture-node-title"] {
+      font-size: 34px;
+    }
+
+    #root [class~="10-architecture-browser"] [class~="10-architecture-responsibility"] {
+      bottom: 20px;
+    }
+
+    #root [class~="10-architecture-layer-label"] {
+      position: absolute;
+      left: 80px;
+      top: 796px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: rgba(238, 242, 255, 0.54);
+      font-family: monospace;
+      font-size: 18px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    #root [class~="10-architecture-layer-rule"] {
+      width: 72px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.25);
+    }
+  </style>
+
+  <div data-hf-id="hf-ybzk" id="root" data-composition-id="10-architecture" data-duration="12.447" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-bg9w" id="10-architecture-background" class="clip 10-architecture-background" data-start="0" data-duration="12.447" data-track-index="0">
+      <div data-hf-id="hf-3296" class="10-architecture-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-yz8r" id="10-architecture-stage" class="clip 10-architecture-stage" data-start="0" data-duration="12.447" data-track-index="1">
+      <div data-hf-id="hf-rcs2" id="10-architecture-kicker" class="10-architecture-kicker">
+        <span data-hf-id="hf-gaae" class="10-architecture-spike">✱</span>
+        <span data-hf-id="hf-cb5n">System architecture</span>
+      </div>
+      <div data-hf-id="hf-olnm" id="10-architecture-index" class="10-architecture-index">Three layers · one owner</div>
+
+      <svg data-hf-id="hf-3wmo" class="10-architecture-network" viewBox="0 0 1920 896" aria-hidden="true">
+        <defs data-hf-id="hf-mh0t">
+          <marker data-hf-id="hf-nju1" id="10-architecture-arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+            <path data-hf-id="hf-uh5v" d="M 0 0 L 8 4 L 0 8 Z" fill="rgba(238,242,255,0.86)" />
+          </marker>
+        </defs>
+        <circle data-hf-id="hf-om7g" id="10-architecture-orbit" class="10-architecture-orbit" cx="960" cy="488" r="226" />
+        <path data-hf-id="hf-gsg7" id="10-architecture-connector-left" class="10-architecture-connector" d="M 712 488 C 666 488, 648 493, 606 493" />
+        <path data-hf-id="hf-ee2m" id="10-architecture-connector-right" class="10-architecture-connector" d="M 1208 488 C 1254 488, 1272 493, 1314 493" />
+        <path data-hf-id="hf-d64w" id="10-architecture-connector-top" class="10-architecture-connector" d="M 960 396 C 960 350, 960 324, 960 280" />
+
+        <path data-hf-id="hf-z4f5" id="10-architecture-flow-left" class="10-architecture-flow" d="M 960 488 C 822 488, 720 493, 606 493" />
+        <path data-hf-id="hf-7nzh" id="10-architecture-flow-right" class="10-architecture-flow" d="M 960 488 C 1098 488, 1200 493, 1314 493" />
+        <path data-hf-id="hf-j10c" id="10-architecture-flow-top" class="10-architecture-flow" d="M 960 488 C 960 410, 960 350, 960 280" />
+        <path data-hf-id="hf-yhxr" id="10-architecture-flow-orbit" class="10-architecture-flow" d="M 960 262 A 226 226 0 1 1 959.9 262" />
+      </svg>
+
+      <section data-hf-id="hf-366c" id="10-architecture-memory" class="10-architecture-node 10-architecture-memory">
+        <div data-hf-id="hf-185u" class="10-architecture-node-topline">
+          <span data-hf-id="hf-6k0c">Persistence</span><span data-hf-id="hf-armz" class="10-architecture-status-dot"></span>
+        </div>
+        <div data-hf-id="hf-0p53" class="10-architecture-node-body">
+          <h2 data-hf-id="hf-aldm" class="10-architecture-node-title">CockroachDB memory</h2>
+          <div data-hf-id="hf-0os8" class="10-architecture-capabilities">
+            <div data-hf-id="hf-v771" id="10-architecture-vector" class="10-architecture-capability">Distributed vector index</div>
+            <div data-hf-id="hf-96kp" id="10-architecture-mcp" class="10-architecture-capability">Managed MCP</div>
+          </div>
+        </div>
+        <div data-hf-id="hf-fqih" id="10-architecture-memory-role" class="10-architecture-responsibility">Memory + receipts</div>
+      </section>
+
+      <section data-hf-id="hf-lk02" id="10-architecture-hub" class="10-architecture-node 10-architecture-hub">
+        <div data-hf-id="hf-cwk6" class="10-architecture-node-topline">
+          <span data-hf-id="hf-ph09">Recovery core</span><span data-hf-id="hf-tzd7" class="10-architecture-status-dot"></span>
+        </div>
+        <div data-hf-id="hf-sbc7" class="10-architecture-node-body">
+          <h1 data-hf-id="hf-egdi" class="10-architecture-node-title 10-architecture-hub-title">RecallOps state machine</h1>
+          <div data-hf-id="hf-sw9w" id="10-architecture-hub-role" class="10-architecture-responsibility">Recovery state</div>
+        </div>
+      </section>
+
+      <section data-hf-id="hf-anis" id="10-architecture-lambda" class="10-architecture-node 10-architecture-lambda">
+        <div data-hf-id="hf-dav7" class="10-architecture-node-topline">
+          <span data-hf-id="hf-day1">Execution</span><span data-hf-id="hf-tl26" class="10-architecture-status-dot"></span>
+        </div>
+        <div data-hf-id="hf-rx16" class="10-architecture-node-body">
+          <h2 data-hf-id="hf-ynrs" class="10-architecture-node-title">AWS Lambda</h2>
+          <div data-hf-id="hf-iw5q" id="10-architecture-entry" class="10-architecture-node-subtitle">Packaged demo entry point</div>
+        </div>
+        <div data-hf-id="hf-44c9" id="10-architecture-lambda-role" class="10-architecture-responsibility">Demo runtime</div>
+      </section>
+
+      <section data-hf-id="hf-u78g" id="10-architecture-browser" class="10-architecture-node 10-architecture-browser">
+        <div data-hf-id="hf-dp68" class="10-architecture-node-topline">
+          <span data-hf-id="hf-fx9o">Interface</span><span data-hf-id="hf-t6r5" class="10-architecture-status-dot"></span>
+        </div>
+        <div data-hf-id="hf-riq5" class="10-architecture-node-body">
+          <h2 data-hf-id="hf-76w1" class="10-architecture-node-title">Browser workbench</h2>
+        </div>
+        <div data-hf-id="hf-utrf" id="10-architecture-browser-role" class="10-architecture-responsibility">Interaction</div>
+      </section>
+
+      <div data-hf-id="hf-vxyq" id="10-architecture-layer-label" class="10-architecture-layer-label">
+        <span data-hf-id="hf-m0jd" class="10-architecture-layer-rule"></span>
+        <span data-hf-id="hf-y7vw">Interface · recovery · infrastructure</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const el = (id) => document.getElementById(id);
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(el("10-architecture-kicker"), { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.05)
+        .fromTo(el("10-architecture-index"), { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.18)
+        .fromTo(el("10-architecture-hub"), { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1.04, duration: 0.62, ease: "power3.out" }, 0.0)
+        .fromTo(el("10-architecture-hub"), { scale: 1.04 }, { scale: 1, duration: 0.20, ease: "power1.out" }, 0.62)
+        .fromTo(el("10-architecture-orbit"), { strokeDashoffset: 1400, opacity: 0.15 }, { strokeDashoffset: 0, opacity: 1, duration: 1.65, ease: "power2.inOut" }, 0.55)
+        .fromTo(el("10-architecture-connector-left"), { strokeDashoffset: 1400 }, { strokeDashoffset: 0, duration: 1.25, ease: "power2.inOut" }, 1.05)
+        .fromTo(el("10-architecture-connector-right"), { strokeDashoffset: 1400 }, { strokeDashoffset: 0, duration: 1.25, ease: "power2.inOut" }, 1.23)
+        .fromTo(el("10-architecture-connector-top"), { strokeDashoffset: 1400 }, { strokeDashoffset: 0, duration: 1.25, ease: "power2.inOut" }, 1.41)
+
+        .fromTo(el("10-architecture-memory"), { opacity: 0, scale: 0.82, x: -26 }, { opacity: 1, scale: 1.04, x: 0, duration: 0.62, ease: "power3.out" }, 2.8)
+        .fromTo(el("10-architecture-memory"), { scale: 1.04 }, { scale: 1, duration: 0.20, ease: "power1.out" }, 3.42)
+        .fromTo(el("10-architecture-vector"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.48, ease: "power2.out" }, 3.65)
+        .fromTo(el("10-architecture-mcp"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.48, ease: "power2.out" }, 4.70)
+
+        .fromTo(el("10-architecture-lambda"), { opacity: 0, scale: 0.82, x: 26 }, { opacity: 1, scale: 1.04, x: 0, duration: 0.62, ease: "power3.out" }, 5.9)
+        .fromTo(el("10-architecture-lambda"), { scale: 1.04 }, { scale: 1, duration: 0.20, ease: "power1.out" }, 6.52)
+        .fromTo(el("10-architecture-entry"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.48, ease: "power2.out" }, 6.72)
+        .fromTo(el("10-architecture-browser"), { opacity: 0, scale: 0.82, y: -22 }, { opacity: 1, scale: 1.04, y: 0, duration: 0.62, ease: "power3.out" }, 7.36)
+        .fromTo(el("10-architecture-browser"), { scale: 1.04 }, { scale: 1, duration: 0.20, ease: "power1.out" }, 7.98)
+
+        .fromTo([el("10-architecture-flow-left"), el("10-architecture-flow-right"), el("10-architecture-flow-top"), el("10-architecture-flow-orbit")], { opacity: 0, strokeDashoffset: 420 }, { opacity: 1, strokeDashoffset: 0, duration: 1.25, ease: "power1.inOut", stagger: 0.10 }, 8.60)
+        .fromTo(el("10-architecture-hub-role"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 8.78)
+        .fromTo(el("10-architecture-memory-role"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 9.02)
+        .fromTo(el("10-architecture-lambda-role"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 9.26)
+        .fromTo(el("10-architecture-browser-role"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 9.50)
+        .fromTo(el("10-architecture-layer-label"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.52, ease: "power2.out" }, 10.02)
+
+        .fromTo(el("10-architecture-stage"), { scale: 1 }, { scale: 0.94, duration: 0.95, ease: "power2.inOut" }, 10.70);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["10-architecture"] = tl;
+    })();
+  </script>
+</template>

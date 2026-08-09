@@ -1,0 +1,517 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #eef2ff;
+    }
+
+    .clip {
+      position: absolute;
+      inset: 0;
+    }
+
+    .\30 4-create-incident-ground {
+      background: #0b1020;
+      overflow: hidden;
+    }
+
+    .\30 4-create-incident-ground-rule {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 64px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.12);
+    }
+
+    .\30 4-create-incident-ground-index {
+      position: absolute;
+      left: 80px;
+      top: 35px;
+      width: 154px;
+      height: 9px;
+      border-radius: 9999px;
+      background: rgba(238, 242, 255, 0.2);
+    }
+
+    .\30 4-create-incident-scene {
+      overflow: hidden;
+    }
+
+    .\30 4-create-incident-streak {
+      position: absolute;
+      left: 118px;
+      width: 1672px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.18);
+      transform-origin: 50% 50%;
+    }
+
+    .\30 4-create-incident-streak-a { top: 186px; }
+    .\30 4-create-incident-streak-b { top: 418px; }
+    .\30 4-create-incident-streak-c { top: 742px; }
+
+    .\30 4-create-incident-window {
+      position: absolute;
+      left: 112px;
+      top: 84px;
+      width: 1696px;
+      height: 770px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 122, 92, 0.5);
+      border-radius: 12px;
+      background: #151d35;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+      will-change: transform, opacity;
+    }
+
+    .\30 4-create-incident-chrome {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 47px;
+      border-bottom: 1px solid rgba(238, 242, 255, 0.12);
+      background: #253355;
+    }
+
+    .\30 4-create-incident-chrome-dot {
+      position: absolute;
+      top: 19px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(238, 242, 255, 0.3);
+    }
+
+    .\30 4-create-incident-chrome-dot-a { left: 20px; }
+    .\30 4-create-incident-chrome-dot-b { left: 37px; opacity: 0.7; }
+    .\30 4-create-incident-chrome-dot-c { left: 54px; opacity: 0.45; }
+
+    .\30 4-create-incident-chrome-line {
+      position: absolute;
+      top: 19px;
+      left: 91px;
+      width: 220px;
+      height: 9px;
+      border-radius: 9999px;
+      background: rgba(238, 242, 255, 0.13);
+    }
+
+    .\30 4-create-incident-body {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 48px;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: 1187px 509px;
+      overflow: hidden;
+    }
+
+    .\30 4-create-incident-left {
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid rgba(238, 242, 255, 0.12);
+      background: #0b1020;
+    }
+
+    .\30 4-create-incident-zoom-outer,
+    .\30 4-create-incident-zoom-inner {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    .\30 4-create-incident-page-world {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .\30 4-create-incident-workbench {
+      position: absolute;
+      left: -430px;
+      top: -35px;
+      width: 2031px;
+      height: 1143px;
+      object-fit: fill;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .\30 4-create-incident-marker {
+      position: absolute;
+      top: 129px;
+      height: 25px;
+      border-radius: 6px;
+      background: rgba(255, 122, 92, 0.22);
+      border-bottom: 1px solid rgba(255, 122, 92, 0.8);
+      transform-origin: 0 50%;
+      will-change: transform, opacity;
+    }
+
+    .\30 4-create-incident-marker-latency {
+      left: 202px;
+      width: 258px;
+    }
+
+    .\30 4-create-incident-marker-retry {
+      left: 473px;
+      width: 224px;
+    }
+
+    .\30 4-create-incident-button-focus {
+      position: absolute;
+      left: 113px;
+      top: 241px;
+      width: 151px;
+      height: 47px;
+      border: 1px solid rgba(255, 122, 92, 0.85);
+      border-radius: 6px;
+      box-sizing: border-box;
+      will-change: transform, opacity;
+    }
+
+    .\30 4-create-incident-cursor {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 40px;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+    }
+
+    .\30 4-create-incident-cursor svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .\30 4-create-incident-ripple {
+      position: absolute;
+      left: 169px;
+      top: 257px;
+      width: 40px;
+      height: 40px;
+      box-sizing: border-box;
+      border: 2px solid #ff7a5c;
+      border-radius: 50%;
+      will-change: transform, opacity;
+    }
+
+    .\30 4-create-incident-evidence {
+      position: relative;
+      padding: 34px 36px;
+      background: #151d35;
+      overflow: hidden;
+    }
+
+    .\30 4-create-incident-evidence-kicker {
+      height: 8px;
+      width: 96px;
+      border-radius: 9999px;
+      background: rgba(238, 242, 255, 0.22);
+    }
+
+    .\30 4-create-incident-evidence-rule {
+      position: absolute;
+      left: 36px;
+      right: 36px;
+      top: 80px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.12);
+    }
+
+    .\30 4-create-incident-evidence-grid {
+      position: absolute;
+      left: 36px;
+      right: 36px;
+      top: 112px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .\30 4-create-incident-evidence-row {
+      height: 58px;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 8px;
+      background: #1d2846;
+    }
+
+    .\30 4-create-incident-evidence-row::before,
+    .\30 4-create-incident-evidence-row::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      height: 7px;
+      border-radius: 9999px;
+      background: rgba(238, 242, 255, 0.12);
+    }
+
+    .\30 4-create-incident-evidence-row::before {
+      top: 16px;
+      width: 104px;
+    }
+
+    .\30 4-create-incident-evidence-row::after {
+      top: 33px;
+      width: 192px;
+      opacity: 0.7;
+    }
+
+    .\30 4-create-incident-evidence-row {
+      position: relative;
+    }
+
+    .\30 4-create-incident-trace {
+      position: absolute;
+      left: 70px;
+      top: 528px;
+      width: 1218px;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.28);
+      transform-origin: 0 50%;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    .\30 4-create-incident-identity {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 407px;
+      height: 72px;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 0 20px;
+      border: 1px solid rgba(255, 122, 92, 0.9);
+      border-radius: 8px;
+      background: #0b1020;
+      color: #eef2ff;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    .\30 4-create-incident-identity-label {
+      font-family: monospace;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+    }
+
+    .\30 4-create-incident-hash {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 6px;
+      align-items: end;
+      height: 24px;
+    }
+
+    .\30 4-create-incident-hash i {
+      display: block;
+      height: 10px;
+      border-radius: 2px;
+      background: rgba(238, 242, 255, 0.55);
+    }
+
+    .\30 4-create-incident-hash i:nth-child(3n + 1) { height: 22px; }
+    .\30 4-create-incident-hash i:nth-child(3n + 2) { height: 15px; }
+  </style>
+
+  <div data-hf-id="hf-7crr" id="root" data-composition-id="04-create-incident" data-duration="10.441" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-ufsm" class="clip 04-create-incident-ground" data-start="0" data-duration="10.441" data-track-index="0">
+      <div data-hf-id="hf-v3fb" class="04-create-incident-ground-rule"></div>
+      <div data-hf-id="hf-3g5n" class="04-create-incident-ground-index"></div>
+    </div>
+
+    <div data-hf-id="hf-2hr6" class="clip 04-create-incident-scene" data-start="0" data-duration="10.441" data-track-index="1">
+      <div data-hf-id="hf-yzo6" class="04-create-incident-streak 04-create-incident-streak-a"></div>
+      <div data-hf-id="hf-v1k5" class="04-create-incident-streak 04-create-incident-streak-b"></div>
+      <div data-hf-id="hf-u9wc" class="04-create-incident-streak 04-create-incident-streak-c"></div>
+
+      <div data-hf-id="hf-zofl" class="04-create-incident-window">
+        <div data-hf-id="hf-bc5b" class="04-create-incident-chrome">
+          <span data-hf-id="hf-t455" class="04-create-incident-chrome-dot 04-create-incident-chrome-dot-a"></span>
+          <span data-hf-id="hf-z9uy" class="04-create-incident-chrome-dot 04-create-incident-chrome-dot-b"></span>
+          <span data-hf-id="hf-37yz" class="04-create-incident-chrome-dot 04-create-incident-chrome-dot-c"></span>
+          <span data-hf-id="hf-hdh3" class="04-create-incident-chrome-line"></span>
+        </div>
+
+        <div data-hf-id="hf-tgjd" class="04-create-incident-body">
+          <div data-hf-id="hf-xchi" class="04-create-incident-left">
+            <div data-hf-id="hf-u74y" class="04-create-incident-zoom-outer">
+              <div data-hf-id="hf-9cjq" class="04-create-incident-zoom-inner" data-layout-allow-overflow="">
+                <div data-hf-id="hf-x8ty" class="04-create-incident-page-world" data-layout-allow-overflow="">
+                  <img data-hf-id="hf-i2o4" class="04-create-incident-workbench" src="assets/workbench.png" alt="" draggable="false">
+                  <div data-hf-id="hf-gs55" class="04-create-incident-marker 04-create-incident-marker-latency"></div>
+                  <div data-hf-id="hf-s5qh" class="04-create-incident-marker 04-create-incident-marker-retry"></div>
+                  <div data-hf-id="hf-ryei" class="04-create-incident-button-focus"></div>
+                  <div data-hf-id="hf-rs8j" class="04-create-incident-ripple"></div>
+                  <div data-hf-id="hf-8ggs" class="04-create-incident-cursor" aria-hidden="true">
+                    <svg data-hf-id="hf-r4y7" viewBox="0 0 32 40" role="presentation">
+                      <path data-hf-id="hf-vzhh" d="M3 2.5 27.5 25h-12l-6.5 12L3 34Z" fill="#EEF2FF" stroke="#0B1020" stroke-width="2" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside data-hf-id="hf-os1x" class="04-create-incident-evidence" aria-label="Incident evidence">
+            <div data-hf-id="hf-1di8" class="04-create-incident-evidence-kicker"></div>
+            <div data-hf-id="hf-cait" class="04-create-incident-evidence-rule"></div>
+            <div data-hf-id="hf-1qfz" class="04-create-incident-evidence-grid">
+              <div data-hf-id="hf-bw4d" class="04-create-incident-evidence-row"></div>
+              <div data-hf-id="hf-qxkh" class="04-create-incident-evidence-row"></div>
+              <div data-hf-id="hf-s4hk" class="04-create-incident-evidence-row"></div>
+            </div>
+          </aside>
+        </div>
+
+        <div data-hf-id="hf-usxk" class="04-create-incident-trace"></div>
+        <div data-hf-id="hf-h0el" class="04-create-incident-identity" aria-label="Run identity">
+          <span data-hf-id="hf-k0qy" class="04-create-incident-identity-label">RUN_ID</span>
+          <span data-hf-id="hf-koi7" class="04-create-incident-hash" aria-hidden="true">
+            <i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i><i data-hf-id="hf-zsm9"></i><i data-hf-id="hf-06xa"></i><i data-hf-id="hf-26gf"></i><i data-hf-id="hf-2krg"></i><i data-hf-id="hf-oz7w"></i><i data-hf-id="hf-okwv"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const id = "04-create-incident";
+      const s = (suffix) => `.${CSS.escape(id + suffix)}`;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        s("-window"),
+        { y: 40, opacity: 0.28 },
+        { y: 0, opacity: 1, duration: 1.55, ease: "power3.out" },
+        0
+      );
+      tl.fromTo(
+        s("-streak-a"),
+        { x: -210, scaleX: 0.35, opacity: 0 },
+        { x: 0, scaleX: 1, opacity: 0.5, duration: 0.9, ease: "power3.out" },
+        0.08
+      );
+      tl.fromTo(
+        s("-streak-b"),
+        { x: -310, scaleX: 0.25, opacity: 0 },
+        { x: 0, scaleX: 1, opacity: 0.3, duration: 1.15, ease: "power3.out" },
+        0.18
+      );
+      tl.fromTo(
+        s("-streak-c"),
+        { x: -160, scaleX: 0.45, opacity: 0 },
+        { x: 0, scaleX: 1, opacity: 0.2, duration: 1.35, ease: "power3.out" },
+        0.3
+      );
+      tl.to(
+        s("-window"),
+        { y: -4, duration: 1.2, ease: "sine.inOut" },
+        1.55
+      );
+
+      tl.to(
+        s("-zoom-outer"),
+        { scale: 1.32, duration: 1.35, ease: "power3.inOut" },
+        2.0
+      );
+      tl.to(
+        s("-zoom-inner"),
+        { x: 8, y: 185, duration: 1.35, ease: "power3.inOut" },
+        2.0
+      );
+      tl.fromTo(
+        s("-marker-latency"),
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 1, opacity: 1, duration: 0.72, ease: "power2.out" },
+        2.42
+      );
+      tl.fromTo(
+        s("-marker-retry"),
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 1, opacity: 1, duration: 0.72, ease: "power2.out" },
+        3.72
+      );
+
+      tl.fromTo(
+        s("-cursor"),
+        { x: 770, y: 350, opacity: 0 },
+        { x: 181, y: 263, opacity: 1, duration: 1.15, ease: "power3.inOut" },
+        5.0
+      );
+      tl.fromTo(
+        s("-button-focus"),
+        { opacity: 0, scale: 0.96 },
+        { opacity: 1, scale: 1, duration: 0.38, ease: "power2.out" },
+        5.72
+      );
+      tl.fromTo(
+        s("-ripple"),
+        { scale: 0.2, opacity: 0.9 },
+        { scale: 2.2, opacity: 0, duration: 0.66, ease: "power2.out" },
+        6.05
+      );
+      tl.to(
+        s("-button-focus"),
+        { scale: 0.95, duration: 0.12, ease: "power2.in" },
+        6.05
+      );
+      tl.to(
+        s("-button-focus"),
+        { scale: 1, duration: 0.24, ease: "power2.out" },
+        6.17
+      );
+      tl.fromTo(
+        s("-trace"),
+        { scaleX: 0, rotation: -15.7, opacity: 0 },
+        { scaleX: 1, rotation: -15.7, opacity: 1, duration: 0.82, ease: "power3.out" },
+        6.22
+      );
+      tl.fromTo(
+        s("-identity"),
+        { x: 70, y: 528, scaleX: 0.08, scaleY: 0.6, opacity: 0, transformOrigin: "0% 50%" },
+        { x: 1253, y: 196, scaleX: 1, scaleY: 1, opacity: 1, duration: 1.05, ease: "power3.inOut" },
+        6.35
+      );
+      tl.fromTo(
+        `${s("-hash")} i`,
+        { scaleY: 0.15, opacity: 0.25, transformOrigin: "50% 100%" },
+        { scaleY: 1, opacity: 1, duration: 0.5, stagger: 0.045, ease: "power2.out" },
+        7.1
+      );
+
+      tl.to(
+        s("-zoom-outer"),
+        { scale: 1, duration: 1.25, ease: "power3.inOut" },
+        8.0
+      );
+      tl.to(
+        s("-zoom-inner"),
+        { x: 0, y: 0, duration: 1.25, ease: "power3.inOut" },
+        8.0
+      );
+      tl.to(
+        s("-window"),
+        { y: 0, duration: 1.15, ease: "sine.inOut" },
+        8.35
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[id] = tl;
+    })();
+  </script>
+</template>

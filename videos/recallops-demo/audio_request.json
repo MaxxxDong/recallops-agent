@@ -1,0 +1,58 @@
+{
+  "provider": "kokoro",
+  "speed": 1,
+  "lines": [
+    {
+      "id": "01",
+      "text": "An incident can interrupt the recovery process itself. The next attempt should remember exactly where the last one stopped."
+    },
+    {
+      "id": "02",
+      "text": "Without durable memory, retries repeat diagnosis, lose provenance, and can execute the same remediation twice."
+    },
+    {
+      "id": "03",
+      "text": "RecallOps is a resumable incident agent. It remembers the evidence, requires approval, and turns one recovery into one durable receipt."
+    },
+    {
+      "id": "04",
+      "text": "Start with a synthetic checkout incident: latency above two seconds, followed by duplicate five-oh-three retries. RecallOps creates a stable run identity."
+    },
+    {
+      "id": "05",
+      "text": "CockroachDB's Distributed Vector Index retrieves relevant incident memory. Every result keeps its source, observation time, and incident identity."
+    },
+    {
+      "id": "06",
+      "text": "CockroachDB Managed MCP provides a second, independently auditable view of the same persistent state — read-only in this prototype."
+    },
+    {
+      "id": "07",
+      "text": "The proposed action cannot run by itself. A human approves one allowlisted simulator restart before execution becomes available."
+    },
+    {
+      "id": "08",
+      "text": "Now inject one failure during execution. The process stops, but the run state, approval, evidence, and idempotency key remain durable."
+    },
+    {
+      "id": "09",
+      "text": "Resume the same run. RecallOps reuses the same idempotency key and produces one receipt. Retry again — execution count stays one."
+    },
+    {
+      "id": "10",
+      "text": "The architecture is deliberately narrow. CockroachDB persists incident memory and action receipts. AWS Lambda runs the packaged demo entry point. RecallOps owns the recovery state machine."
+    },
+    {
+      "id": "11",
+      "text": "Provider verification proves the real CockroachDB paths separately. The deployed Lambda image carries no database secrets and exposes no anonymous function URL."
+    },
+    {
+      "id": "12",
+      "text": "RecallOps: durable incident memory, human approval, and exactly-once recovery — demonstrated safely with synthetic data and a simulator action."
+    }
+  ],
+  "bgm": {
+    "mode": "none"
+  },
+  "voice": "bf_emma"
+}

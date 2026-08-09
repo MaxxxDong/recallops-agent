@@ -1,0 +1,480 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #EEF2FF;
+      font-family: sans-serif;
+    }
+
+    [class~="07-approval-gate-bg"] {
+      position: absolute;
+      inset: 0;
+      background: #0B1020;
+      overflow: hidden;
+    }
+
+    [class~="07-approval-gate-bg-rule"] {
+      position: absolute;
+      left: 4.2cqw;
+      right: 4.2cqw;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.12);
+    }
+
+    [class~="07-approval-gate-bg-rule-top"] { top: 8.8cqh; }
+    [class~="07-approval-gate-bg-rule-bottom"] { top: 76.8cqh; }
+
+    [class~="07-approval-gate-stage"] {
+      position: absolute;
+      inset: 0 0 17cqh 0;
+      overflow: hidden;
+    }
+
+    [class~="07-approval-gate-required"] {
+      position: absolute;
+      top: 11.5cqh;
+      left: 50%;
+      width: 42cqw;
+      margin-left: -21cqw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25cqh;
+      text-align: center;
+    }
+
+    [class~="07-approval-gate-human-mark"] {
+      width: 3.65cqw;
+      height: 3.65cqw;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 9999px;
+      background: #181818;
+      color: #EEF2FF;
+    }
+
+    [class~="07-approval-gate-human-mark"] svg {
+      width: 1.82cqw;
+      height: 1.82cqw;
+    }
+
+    [class~="07-approval-gate-required-copy"] {
+      font-family: monospace;
+      font-size: 1.46cqw;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      font-weight: 400;
+      color: rgba(238, 242, 255, 0.86);
+    }
+
+    [class~="07-approval-gate-swap-wrap"] {
+      position: absolute;
+      top: 29.4cqh;
+      left: 50%;
+      width: 40cqw;
+      height: 23cqh;
+      margin-left: -20cqw;
+    }
+
+    [class~="07-approval-gate-state"] {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      transform-origin: 50% 50%;
+    }
+
+    [class~="07-approval-gate-locked-card"] {
+      width: 40cqw;
+      height: 23cqh;
+      display: grid;
+      grid-template-columns: 5.6cqw 1fr 3.4cqw;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 0 2.2cqw;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 12px;
+      background: #181818;
+      box-shadow: 0 1px 3px rgba(238, 242, 255, 0.08), 0 4px 16px rgba(238, 242, 255, 0.04);
+    }
+
+    [class~="07-approval-gate-lock-disc"] {
+      width: 4.1cqw;
+      height: 4.1cqw;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 8px;
+      background: #151D35;
+    }
+
+    [class~="07-approval-gate-lock-disc"] svg {
+      width: 2.05cqw;
+      height: 2.05cqw;
+    }
+
+    [class~="07-approval-gate-locked-copy"] {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9cqh;
+    }
+
+    [class~="07-approval-gate-locked-label"] {
+      font-size: 2.14cqw;
+      line-height: 1.05;
+      letter-spacing: -0.018em;
+      font-weight: 400;
+    }
+
+    [class~="07-approval-gate-locked-meta"] {
+      font-family: monospace;
+      font-size: 1.4cqw;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: rgba(238, 242, 255, 0.54);
+    }
+
+    [class~="07-approval-gate-lock-bars"] {
+      display: flex;
+      flex-direction: column;
+      gap: 0.58cqh;
+      align-items: flex-end;
+    }
+
+    [class~="07-approval-gate-lock-bars"] span {
+      display: block;
+      width: 2.5cqw;
+      height: 1px;
+      background: rgba(238, 242, 255, 0.20);
+    }
+
+    [class~="07-approval-gate-lock-bars"] span:last-child { width: 1.55cqw; }
+
+    [class~="07-approval-gate-approve-button"] {
+      position: relative;
+      width: 26cqw;
+      height: 13.8cqh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 8px;
+      background: #FF7A5C;
+      color: #0B1020;
+      transform-origin: 50% 50%;
+    }
+
+    [class~="07-approval-gate-button-label"] {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 2.05cqw;
+      line-height: 1;
+      letter-spacing: -0.005em;
+      font-weight: 400;
+      transform-origin: 50% 50%;
+    }
+
+    [class~="07-approval-gate-approved-label"] {
+      grid-template-columns: auto auto;
+      gap: 0.8cqw;
+    }
+
+    [class~="07-approval-gate-approved-label"] svg {
+      width: 1.65cqw;
+      height: 1.65cqw;
+    }
+
+    [class~="07-approval-gate-target"] {
+      position: absolute;
+      top: 61.2cqh;
+      left: 50%;
+      width: 37cqw;
+      min-height: 8cqh;
+      margin-left: -18.5cqw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 0 1.65cqw;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 8px;
+      background: #151D35;
+    }
+
+    [class~="07-approval-gate-target-key"] {
+      font-family: monospace;
+      font-size: 1.4cqw;
+      line-height: 1;
+      color: rgba(238, 242, 255, 0.54);
+    }
+
+    [class~="07-approval-gate-target-value"] {
+      font-family: monospace;
+      font-size: 1.4cqw;
+      line-height: 1;
+      color: #EEF2FF;
+    }
+
+    [class~="07-approval-gate-execution"] {
+      position: absolute;
+      top: 34cqh;
+      left: 64.5cqw;
+      width: 23cqw;
+      min-height: 14.5cqh;
+      display: grid;
+      grid-template-columns: 3.45cqw 1fr;
+      align-items: center;
+      gap: 1.2cqw;
+      box-sizing: border-box;
+      padding: 0 1.45cqw;
+      border: 1px solid rgba(238, 242, 255, 0.20);
+      border-radius: 8px;
+      background: #151D35;
+    }
+
+    [class~="07-approval-gate-execution-icon"] {
+      width: 3.45cqw;
+      height: 3.45cqw;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(238, 242, 255, 0.12);
+      border-radius: 6px;
+      background: #1D2846;
+    }
+
+    [class~="07-approval-gate-execution-icon"] svg {
+      width: 1.8cqw;
+      height: 1.8cqw;
+    }
+
+    [class~="07-approval-gate-execution-copy"] {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9cqh;
+    }
+
+    [class~="07-approval-gate-execution-title"] {
+      font-size: 1.4cqw;
+      line-height: 1.05;
+      letter-spacing: -0.005em;
+    }
+
+    [class~="07-approval-gate-execution-status"] {
+      font-family: monospace;
+      font-size: 1.4cqw;
+      line-height: 1;
+      color: rgba(238, 242, 255, 0.54);
+    }
+
+    [class~="07-approval-gate-cursor"] {
+      position: absolute;
+      top: 39.4cqh;
+      left: 56.9cqw;
+      width: 4.2cqw;
+      height: 4.2cqw;
+      z-index: 8;
+      pointer-events: none;
+      transform-origin: 0 0;
+      color: #EEF2FF;
+    }
+
+    [class~="07-approval-gate-cursor"] svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 1px 3px rgba(11, 16, 32, 0.35));
+    }
+
+    [class~="07-approval-gate-ripple"] {
+      position: absolute;
+      top: 38.5cqh;
+      left: 56cqw;
+      width: 3.4cqw;
+      height: 3.4cqw;
+      border: 2px solid #FF7A5C;
+      border-radius: 9999px;
+      box-sizing: border-box;
+      pointer-events: none;
+      transform-origin: 50% 50%;
+    }
+  </style>
+
+  <div data-hf-id="hf-ujqu" id="root" data-composition-id="07-approval-gate" data-duration="8.585" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-srpt" class="clip 07-approval-gate-bg" data-start="0" data-duration="8.585" data-track-index="0">
+      <div data-hf-id="hf-5vnm" class="07-approval-gate-bg-rule 07-approval-gate-bg-rule-top"></div>
+      <div data-hf-id="hf-8ahs" class="07-approval-gate-bg-rule 07-approval-gate-bg-rule-bottom"></div>
+    </div>
+
+    <section data-hf-id="hf-xp6j" class="clip 07-approval-gate-stage" data-start="0" data-duration="8.585" data-track-index="1" aria-label="Human approval gate">
+      <div data-hf-id="hf-wr9k" id="07-approval-gate-required" class="07-approval-gate-required">
+        <div data-hf-id="hf-gwy4" class="07-approval-gate-human-mark" aria-hidden="true">
+          <svg data-hf-id="hf-6ljx" viewBox="0 0 48 48" fill="none">
+            <circle data-hf-id="hf-2j3z" cx="24" cy="16" r="7" stroke="currentColor" stroke-width="2" />
+            <path data-hf-id="hf-vm2c" d="M10 39c1.2-8.1 6.3-12.2 14-12.2S36.8 30.9 38 39" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div data-hf-id="hf-jxa9" class="07-approval-gate-required-copy">APPROVAL REQUIRED</div>
+      </div>
+
+      <div data-hf-id="hf-4svu" class="07-approval-gate-swap-wrap">
+        <div data-hf-id="hf-23k9" id="07-approval-gate-locked-state" class="07-approval-gate-state">
+          <div data-hf-id="hf-qzw9" class="07-approval-gate-locked-card">
+            <div data-hf-id="hf-4au8" class="07-approval-gate-lock-disc" aria-hidden="true">
+              <svg data-hf-id="hf-9okx" viewBox="0 0 48 48" fill="none">
+                <rect data-hf-id="hf-d24e" x="10" y="21" width="28" height="21" rx="5" stroke="currentColor" stroke-width="2" />
+                <path data-hf-id="hf-7nru" d="M16 21v-5a8 8 0 0 1 16 0v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle data-hf-id="hf-g5tk" cx="24" cy="31" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <div data-hf-id="hf-90so" class="07-approval-gate-locked-copy">
+              <div data-hf-id="hf-sshl" class="07-approval-gate-locked-label">RESTART SYNTHETIC WORKER</div>
+              <div data-hf-id="hf-x5ss" class="07-approval-gate-locked-meta">ACTION LOCKED</div>
+            </div>
+            <div data-hf-id="hf-iux1" class="07-approval-gate-lock-bars" aria-hidden="true"><span data-hf-id="hf-uckh"></span><span data-hf-id="hf-l73p"></span></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-0jla" id="07-approval-gate-approve-state" class="07-approval-gate-state">
+          <div data-hf-id="hf-10zi" id="07-approval-gate-approve-button" class="07-approval-gate-approve-button">
+            <div data-hf-id="hf-cru7" id="07-approval-gate-approve-label" class="07-approval-gate-button-label">APPROVE ONCE</div>
+            <div data-hf-id="hf-7rmx" id="07-approval-gate-approved-label" class="07-approval-gate-button-label 07-approval-gate-approved-label">
+              <svg data-hf-id="hf-mfkw" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <path data-hf-id="hf-1fh3" d="m9 21 7 7 15-16" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span data-hf-id="hf-oxiu">APPROVED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-0168" id="07-approval-gate-target" class="07-approval-gate-target">
+        <span data-hf-id="hf-yojn" class="07-approval-gate-target-key">ALLOWLISTED TARGET</span>
+        <span data-hf-id="hf-of31" class="07-approval-gate-target-value">synthetic-worker.restart</span>
+      </div>
+
+      <div data-hf-id="hf-ybxu" id="07-approval-gate-execution" class="07-approval-gate-execution">
+        <div data-hf-id="hf-lshz" class="07-approval-gate-execution-icon" aria-hidden="true">
+          <svg data-hf-id="hf-avi0" viewBox="0 0 48 48" fill="none">
+            <rect data-hf-id="hf-ol42" x="10" y="21" width="28" height="21" rx="5" stroke="currentColor" stroke-width="2" />
+            <path data-hf-id="hf-q5en" d="M17 21v-5a8 8 0 0 1 14.4-4.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path data-hf-id="hf-9rbi" d="M31.5 11v9h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div data-hf-id="hf-baqo" class="07-approval-gate-execution-copy">
+          <div data-hf-id="hf-24tg" class="07-approval-gate-execution-title">EXECUTION UNLOCKED</div>
+          <div data-hf-id="hf-i7zb" class="07-approval-gate-execution-status">READY · NOT RUNNING</div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-a6x3" id="07-approval-gate-ripple" class="07-approval-gate-ripple" aria-hidden="true"></div>
+      <div data-hf-id="hf-j9bb" id="07-approval-gate-cursor" class="07-approval-gate-cursor" aria-hidden="true">
+        <svg data-hf-id="hf-cvur" viewBox="0 0 72 72" fill="none">
+          <path data-hf-id="hf-7fje" d="M8 7 58 37 35 41 24 63 8 7Z" fill="currentColor" stroke="#0B1020" stroke-width="3" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const byId = (id) => document.getElementById(id);
+      const required = byId("07-approval-gate-required");
+      const lockedState = byId("07-approval-gate-locked-state");
+      const approveState = byId("07-approval-gate-approve-state");
+      const approveButton = byId("07-approval-gate-approve-button");
+      const approveLabel = byId("07-approval-gate-approve-label");
+      const approvedLabel = byId("07-approval-gate-approved-label");
+      const target = byId("07-approval-gate-target");
+      const execution = byId("07-approval-gate-execution");
+      const cursor = byId("07-approval-gate-cursor");
+      const ripple = byId("07-approval-gate-ripple");
+      const stage = document.querySelector('[class~="07-approval-gate-stage"]');
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["07-approval-gate"] = tl;
+
+      tl.fromTo(required,
+        { opacity: 0, y: "-2.2cqh" },
+        { opacity: 1, y: 0, duration: 0.38, ease: "power3.out" },
+        0.06
+      );
+      tl.fromTo(lockedState,
+        { opacity: 0, scale: 0.94 },
+        { opacity: 1, scale: 1, duration: 0.42, ease: "power3.out" },
+        0.06
+      );
+      tl.fromTo(target,
+        { opacity: 0, y: "2.2cqh" },
+        { opacity: 1, y: 0, duration: 0.52, ease: "power3.out" },
+        1.08
+      );
+
+      tl.to(lockedState,
+        { opacity: 0, scale: 0.72, duration: 0.38, ease: "power2.in" },
+        1.90
+      );
+      tl.fromTo(approveState,
+        { opacity: 0, scale: 0.72 },
+        { opacity: 1, scale: 1, duration: 0.62, ease: "back.out(1.8)", immediateRender: true },
+        2.15
+      );
+
+      tl.fromTo(cursor,
+        { opacity: 0, x: "30cqw", y: "24cqh" },
+        { opacity: 1, x: 0, y: 0, duration: 1.24, ease: "power2.out", immediateRender: true },
+        3.84
+      );
+      tl.to([approveButton, cursor],
+        { scale: 0.90, duration: 0.16, ease: "power1.in" },
+        5.08
+      );
+      tl.to(approveButton,
+        { boxShadow: "inset 0 0 0 4px rgba(238, 242, 255, 0.30)", duration: 0.16, ease: "power1.in" },
+        5.08
+      );
+      tl.fromTo(ripple,
+        { opacity: 0.82, scale: 0.25 },
+        { opacity: 0, scale: 2.1, duration: 0.62, ease: "power2.out", immediateRender: true },
+        5.16
+      );
+      tl.to([approveButton, cursor],
+        { scale: 1, duration: 0.54, ease: "back.out(1.8)" },
+        5.31
+      );
+      tl.to(approveButton,
+        { boxShadow: "inset 0 0 0 0 rgba(238, 242, 255, 0)", duration: 0.54, ease: "power2.out" },
+        5.31
+      );
+
+      tl.to([approveButton, cursor],
+        { x: "-6.25cqw", duration: 0.50, ease: "power4.out" },
+        5.90
+      );
+      tl.to(approveLabel,
+        { opacity: 0, scale: 0.75, duration: 0.25, ease: "power2.in" },
+        5.90
+      );
+      tl.fromTo(approvedLabel,
+        { opacity: 0, scale: 0.75 },
+        { opacity: 1, scale: 1, duration: 0.46, ease: "back.out(1.4)", immediateRender: true },
+        6.05
+      );
+      tl.fromTo(execution,
+        { opacity: 0.35, x: "11.9cqw" },
+        { opacity: 1, x: 0, duration: 0.50, ease: "power4.out", immediateRender: true },
+        5.90
+      );
+
+      tl.to(stage, { opacity: 1, duration: 0.001, ease: "none" }, 8.084);
+    })();
+  </script>
+</template>

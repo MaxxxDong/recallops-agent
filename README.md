@@ -28,6 +28,8 @@ To create the schema, C-SPANN index, and two explicitly synthetic demo memories,
 - [Privacy and threat model](docs/security/trust-boundary.md)
 - [Pre-existing work and third-party disclosure](docs/technical-overview.md#pre-existing-work-and-third-party-disclosure)
 - [Dependency license inventory](docs/dependency-licenses.md)
+- [Submission draft](docs/submission-draft.md)
+- [Final demo video](videos/recallops-demo/renders/recallops-final.mp4)
 
 ## Scope
 
