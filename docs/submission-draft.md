@@ -1,4 +1,4 @@
-# RecallOps — submission draft
+# RecallOps — submission record
 
 ## One-line summary
 
@@ -30,9 +30,11 @@ The demo deliberately injects one execution failure, resumes the same run, and v
 ## Submission links
 
 - Public repository: https://github.com/MaxxxDong/recallops-agent
-- Functional demo: pending public-access security decision
+- Functional demo: https://github.com/MaxxxDong/recallops-agent (installable without credentials; run `recallops` and open `http://127.0.0.1:8080`)
 - Public video under three minutes: https://youtu.be/XoBr9iga4zQ (`videos/recallops-demo/renders/recallops-final.mp4`, 106.27s, 1080p, H.264/AAC, SHA-256 `ffbf310488aba29cc08affdcb8238df7e23871bbd32f326fda26bf748902a64f`)
+- Devpost submission: https://devpost.com/software/recallops-h5oru8
+- Submission status: submitted to CockroachDB × AWS Hackathon — Build with Agentic Memory.
 
 ## Access note
 
-The judging build must remain available without payment through the judging period. Any test credentials or access instructions will be documented here before submission.
+The installable judging build requires no credentials or paid service. The deployed AWS Lambda remains IAM-gated because AWS rejected reserved concurrency `1` under the account's concurrency floor; it is deployment evidence, not the public functional-demo URL.
