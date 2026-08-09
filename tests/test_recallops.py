@@ -13,7 +13,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from recallops.core import ConfigurationRequired, DemoStore, InjectedFailure, RecallOps
-from recallops.http import application
+from recallops.http import PUBLIC_DEMO_EVENT, application
 from recallops.lambda_handler import handler
 from recallops.providers import CockroachStore, CockroachVectorTool, FastEmbedAdapter, ManagedMCPMemoryAuditor, _cockroach_url
 
@@ -158,9 +158,23 @@ class SinkAndConfigurationTests(unittest.TestCase):
         self.assertNotIn("receipt", body)
         self.assertEqual(body["status"], "approval_required")
 
+    def test_public_demo_accepts_only_fixed_synthetic_incident(self):
+        with patch.dict(os.environ, {"RECALLOPS_PUBLIC_DEMO": "1"}):
+            self.assertEqual(wsgi("POST", "/api/runs", {"event_text": PUBLIC_DEMO_EVENT})[0], 201)
+            status, _, body = wsgi("POST", "/api/runs", {"event_text": "production://restart-everything"})
+        self.assertEqual(status, 400)
+        self.assertEqual(body["error"], "public_demo_uses_fixed_synthetic_incident")
+
     def test_lambda_handler_import_and_health(self):
         result = handler({"rawPath": "/health", "requestContext": {"http": {"method": "GET", "path": "/health"}}}, None)
         self.assertEqual(result["statusCode"], 200)
+
+    def test_lambda_handler_rejects_invalid_or_oversized_encoded_body(self):
+        event = {"body": "%%%", "isBase64Encoded": True, "requestContext": {"http": {"method": "POST", "path": "/api/runs"}}}
+        self.assertEqual(handler(event, None)["statusCode"], 400)
+        event["body"] = "x" * 32_769
+        event["isBase64Encoded"] = False
+        self.assertEqual(handler(event, None)["statusCode"], 413)
 
 
 class ProviderInvariantTests(unittest.TestCase):

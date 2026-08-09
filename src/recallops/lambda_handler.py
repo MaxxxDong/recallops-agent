@@ -6,12 +6,19 @@ from typing import Any
 
 from .http import application
 
+MAX_EVENT_BODY_BYTES = 32_768
+
 
 def handler(event: dict[str, Any], _context: Any) -> dict[str, Any]:
     request = event.get("requestContext", {}).get("http", {})
     body = event.get("body") or ""
-    if event.get("isBase64Encoded"):
-        body = base64.b64decode(body).decode()
+    if len(body.encode()) > MAX_EVENT_BODY_BYTES:
+        return {"statusCode": 413, "headers": {"Content-Type": "application/json; charset=utf-8"}, "body": '{"error":"payload_too_large"}'}
+    try:
+        if event.get("isBase64Encoded"):
+            body = base64.b64decode(body, validate=True).decode("utf-8")
+    except (ValueError, UnicodeDecodeError):
+        return {"statusCode": 400, "headers": {"Content-Type": "application/json; charset=utf-8"}, "body": '{"error":"invalid_body_encoding"}'}
     status_headers: dict[str, Any] = {}
 
     def start_response(status: str, headers: list[tuple[str, str]]) -> None:

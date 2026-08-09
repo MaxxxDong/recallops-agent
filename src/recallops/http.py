@@ -17,6 +17,7 @@ LOG = logging.getLogger("recallops")
 APP = RecallOps()
 PROVIDER_APP = None
 MAX_BODY_BYTES = 16_384
+PUBLIC_DEMO_EVENT = "Checkout latency rose above 2 seconds and duplicate 503 retries appeared."
 
 
 class RequestTooLarge(ValueError):
@@ -89,6 +90,8 @@ def application(environ, start_response):
             text = str(data.get("event_text", ""))
             if not 1 <= len(text) <= 4000:
                 raise ValueError("event_text_length")
+            if os.getenv("RECALLOPS_PUBLIC_DEMO") == "1" and text != PUBLIC_DEMO_EVENT:
+                raise ValueError("public_demo_uses_fixed_synthetic_incident")
             return json_response(start_response, "201 Created", current_app().start(text))
         match = path.strip("/").split("/")
         if len(match) == 3 and match[:2] == ["api", "runs"] and method == "GET":
