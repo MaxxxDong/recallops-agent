@@ -27,11 +27,11 @@ The demo deliberately injects one execution failure, resumes the same run, and v
 5. Resume the same run.
 6. Retry and verify `execution_count = 1` with the same receipt.
 
-## Links to add at Gate C
+## Submission links
 
-- Public repository: pending publication approval
+- Public repository: https://github.com/MaxxxDong/recallops-agent
 - Functional demo: pending public-access security decision
-- Public video under three minutes: `videos/recallops-demo/renders/recallops-final.mp4` (106.27s, 1080p, H.264/AAC, SHA-256 `ffbf310488aba29cc08affdcb8238df7e23871bbd32f326fda26bf748902a64f`)
+- Public video under three minutes: https://youtu.be/XoBr9iga4zQ (`videos/recallops-demo/renders/recallops-final.mp4`, 106.27s, 1080p, H.264/AAC, SHA-256 `ffbf310488aba29cc08affdcb8238df7e23871bbd32f326fda26bf748902a64f`)
 
 ## Access note
 
